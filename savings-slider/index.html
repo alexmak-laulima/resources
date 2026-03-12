@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Much You Save Every Month Volunteering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            height: auto; 
+            margin: 0; 
+            background-color: transparent !important; 
+            overflow: hidden; /* Added for cooling solution */
+        }
+        
+        /* Container for cooling solution height calculation */
+        #widget-container {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+        }
+
+        .text-xxs {
+            font-size: 0.625rem;
+            line-height: 1rem;
+        }
+
+        .custom-max-w {
+            max-width: 1026px;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #6610f2 0%, #008dd5 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-card-bg {
+            background: rgba(255, 255, 255, 0.15); 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .slider-track {
+            background: linear-gradient(to right, #00ffcc 0%, #00ffcc 25%, #e5e7eb 25%, #e5e7eb 100%);
+        }
+        
+        .number-highlight {
+            background: linear-gradient(135deg, #00ffcc, #33ffdd); 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-pullout {
+            color: #00ffcc;
+        }
+        
+        .experiences-list li {
+            position: relative;
+            padding-left: 1rem;
+            line-height: 1.4;
+        }
+
+        .experiences-list li .check-icon {
+            position: absolute;
+            left: 0;
+            top: 0.1rem;
+            color: #00ffcc; 
+        }
+        
+        .list-height-fix {
+            min-height: 120px; 
+        }
+
+        .custom-slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 40px; 
+            height: 40px; 
+            background: transparent; 
+            border-radius: 50%;
+            cursor: grab;
+            border: none; 
+            box-shadow: none; 
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="80">🛩️</text></svg>'); 
+            background-size: 85%;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-top: -13px; 
+        }
+
+        .custom-slider-thumb::-moz-range-thumb {
+            width: 40px; 
+            height: 40px; 
+            background: transparent; 
+            border-radius: 50%;
+            cursor: grab;
+            border: none; 
+            box-shadow: none; 
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="80">🛩️</text></svg>'); 
+            background-size: 85%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .custom-slider-thumb {
+            accent-color: transparent; 
+        }
+    </style>
+</head>
+<body class="bg-transparent"> 
+    <div id="widget-container" class="py-6 px-4 gradient-bg"> 
+        <div class="custom-max-w mx-auto">
+            <div class="text-center mb-6">
+                <p class="text-2xl font-bold text-white max-w-2xl mx-auto">
+                    How Much You Save Every Month Volunteering
+                </p>
+                <p class="text-sm text-white/80 mt-2">
+                    Calculate your cash savings from your first exchange in three popular volunteering continents.
+                </p>
+            </div>
+
+            <div class="glass-effect rounded-2xl p-6 mb-6 shadow-2xl"> 
+                <div class="text-center">
+                    <label class="block text-xl font-semibold text-white mb-4">
+                        I plan to travel for <span id="monthsDisplay" class="number-highlight text-2xl font-bold">3</span> months
+                    </label>
+                    
+                    <div class="max-w-md mx-auto">
+                        <input 
+                            type="range" 
+                            id="monthsSlider" 
+                            min="1" 
+                            max="12" 
+                            value="3" 
+                            class="w-full h-3 rounded-lg appearance-none cursor-pointer slider-track custom-slider-thumb"
+                        >
+                        <div class="flex justify-between text-sm text-white/80 mt-2"> 
+                            <span>1 month</span>
+                            <span>12 months</span>
+                        </div>
+                        <p class="text-xs text-white/70 mt-2 italic">
+                            (Drag the 🛩️ to toggle months)
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 mb-4">
+                
+                <!-- EUROPE CARD -->
+                <div class="result-card-bg rounded-xl p-4 text-center shadow-xl"> 
+                    <div class="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-2xl">🏰</span> 
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-4">Europe</h3>
+                    
+                    <div class="p-3 bg-white/10 rounded-lg mb-2">
+                        <p class="text-xs text-white/80">Total Cash Saved (for <span id="monthsSavedEU">3</span> months)</p>
+                        <div class="text-2xl font-bold metric-pullout">
+                            £<span id="cashSavedEU">2,880</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-white/10 rounded-lg text-left">
+                        <p class="text-xs text-white/80 mb-2 font-bold">What experiences this can pay for:</p>
+                        <ul id="experiencesEU" class="text-sm text-white/90 space-y-1 experiences-list list-height-fix"></ul>
+                    </div>
+                    
+                    <p class="text-xxs text-white/60 mt-4">
+                        Based on £25/night stay + £7/day breakfast included.
+                    </p>
+                </div>
+
+                <!-- SOUTH AMERICA CARD -->
+                <div class="result-card-bg rounded-xl p-4 text-center shadow-xl"> 
+                    <div class="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-2xl">⛰️</span> 
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-4">South America</h3>
+                    
+                    <div class="p-3 bg-white/10 rounded-lg mb-2">
+                        <p class="text-xs text-white/80">Total Cash Saved (for <span id="monthsSavedSA">3</span> months)</p>
+                        <div class="text-2xl font-bold metric-pullout"> 
+                        £<span id="cashSavedSA">1,620</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-white/10 rounded-lg text-left">
+                        <p class="text-xs text-white/80 mb-2 font-bold">What experiences this can pay for:</p>
+                        <ul id="experiencesSA" class="text-sm text-white/90 space-y-1 experiences-list list-height-fix"></ul>
+                    </div>
+                    
+                    <p class="text-xxs text-white/60 mt-4">
+                        Based on £12/night stay + £6/day breakfast included.
+                    </p>
+                </div>
+
+                <!-- SOUTH EAST ASIA CARD -->
+                <div class="result-card-bg rounded-xl p-4 text-center shadow-xl"> 
+                    <div class="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-2xl">🏯</span> 
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-4">South East Asia</h3>
+                    
+                    <div class="p-3 bg-white/10 rounded-lg mb-2">
+                        <p class="text-xs text-white/80">Total Cash Saved (for <span id="monthsSavedSEA">3</span> months)</p>
+                        <div class="text-2xl font-bold metric-pullout">
+                            £<span id="cashSavedSEA">1,440</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-white/10 rounded-lg text-left">
+                        <p class="text-xs text-white/80 mb-2 font-bold">What experiences this can pay for:</p>
+                        <ul id="experiencesSEA" class="text-sm text-white/90 space-y-1 experiences-list list-height-fix"></ul>
+                    </div>
+                    
+                    <p class="text-xxs text-white/60 mt-4">
+                        Based on £11/night stay + £5/day breakfast included.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- COOLING SOLUTION LOGIC ---
+        function sendHeight() {
+            const height = document.getElementById('widget-container').offsetHeight;
+            window.parent.postMessage({ height: height }, '*');
+        }
+
+        window.addEventListener('load', sendHeight);
+        window.addEventListener('resize', sendHeight);
+        
+        // Observer to catch dynamic height changes when lists update
+        const observer = new MutationObserver(sendHeight);
+        observer.observe(document.getElementById('widget-container'), { 
+            childList: true, 
+            subtree: true, 
+            attributes: true 
+        });
+
+        const slider = document.getElementById('monthsSlider');
+        const monthsDisplay = document.getElementById('monthsDisplay');
+
+        const iternaries = {
+            EU: [
+                [{n:"Eiffel Tower Summit", l:"France", c:35}, {n:"Colosseum & Forum", l:"Italy", c:22}, {n:"Paragliding Swiss Alps", l:"Switzerland", c:185}],
+                [{n:"Sailing Greek Islands", l:"Greece", c:110}, {n:"Tomorrowland Day Pass", l:"Belgium", c:125}, {n:"Oktoberfest Table", l:"Germany", c:85}],
+                [{n:"Husky Sledding", l:"Norway", c:175}, {n:"Hungarian Bath Party", l:"Hungary", c:55}, {n:"Caminito del Rey Hike", l:"Spain", c:30}],
+                [{n:"GoT City Walls Walk", l:"Croatia", c:35}, {n:"Street Art Tour", l:"Germany", c:20}, {n:"Prague Castle Entry", l:"Czech Republic", c:18}],
+                [{n:"Vatican & Sistine Chapel", l:"Vatican City", c:25}, {n:"Anne Frank House", l:"Netherlands", c:16}, {n:"Cliffs of Moher Trip", l:"Ireland", c:50}],
+                [{n:"Isle of Skye Tour", l:"Scotland", c:65}, {n:"Private Gondola Ride", l:"Italy", c:90}, {n:"Blue Lagoon Entry", l:"Iceland", c:95}],
+                [{n:"Sagrada Familia", l:"Spain", c:32}, {n:"Postojna Cave & Castle", l:"Slovenia", c:42}, {n:"Harry Potter Studio Tour", l:"England", c:55}],
+                [{n:"Bernina Express Train", l:"Switzerland", c:65}, {n:"Plitvice Lakes Entry", l:"Croatia", c:40}, {n:"Douro Wine Tour", l:"Portugal", c:105}],
+                [{n:"Mont Saint-Michel Abbey", l:"France", c:15}, {n:"Transylvanian Castle", l:"Romania", c:12}, {n:"Auschwitz Memorial", l:"Poland", c:25}],
+                [{n:"Acropolis & Parthenon", l:"Greece", c:20}, {n:"Choc & Beer Workshop", l:"Belgium", c:45}, {n:"Copenhagen Boat Cruise", l:"Denmark", c:15}],
+                [{n:"Viking Ship Museum", l:"Norway", c:12}, {n:"Alhambra Palace", l:"Spain", c:18}, {n:"Mostar Bridge Jumping", l:"Bosnia", c:25}],
+                [{n:"Zermatt Ski Pass", l:"Switzerland", c:85}, {n:"Salt Mine Tour", l:"Poland", c:28}, {n:"Fado & Dinner", l:"Portugal", c:50}]
+            ],
+            SA: [
+                [{n:"3-Day Salar de Uyuni", l:"Bolivia", c:165}, {n:"Christ & Sugarloaf", l:"Brazil", c:65}, {n:"Coffee Farm Experience", l:"Colombia", c:25}],
+                [{n:"Tango Show & Dinner", l:"Argentina", c:95}, {n:"Death Road Biking", l:"Bolivia", c:105}, {n:"Atacama Stargazing", l:"Chile", c:55}],
+                [{n:"Colca Canyon Hike", l:"Peru", c:70}, {n:"Mountain of 7 Colors", l:"Peru", c:40}, {n:"Hand of the Desert", l:"Chile", c:35}],
+                [{n:"Canyoning & Waterfalls", l:"Ecuador", c:60}, {n:"Easter Island Entry", l:"Chile", c:180}, {n:"Tayrona Overnight Hike", l:"Colombia", c:85}],
+                [{n:"Sandboarding & Buggy", l:"Peru", c:45}, {n:"Mount Fitz Roy Hike", l:"Argentina", c:0}, {n:"Samba School Rehearsal", l:"Brazil", c:30}],
+                [{n:"Lake Titicaca Homestay", l:"Peru", c:65}, {n:"TeleferiQO Hike", l:"Ecuador", c:15}, {n:"Huayna Potosí Summit", l:"Bolivia", c:185}],
+                [{n:"Lencóis Maranhenses", l:"Brazil", c:50}, {n:"Moon Valley Tour", l:"Bolivia", c:15}, {n:"Ballestas Islands", l:"Peru", c:25}],
+                [{n:"Beagle Channel Cruise", l:"Argentina", c:75}, {n:"Guatapé Rock Climb", l:"Colombia", c:12}, {n:"Chavín Ruins", l:"Peru", c:20}],
+                [{n:"1-Week Spanish Course", l:"Colombia", c:160}, {n:"Iguazu Falls Heli", l:"Brazil", c:240}, {n:"Baños Waterfalls", l:"Ecuador", c:60}],
+                [{n:"Amazon Lodge (3 Days)", l:"Peru", c:350}, {n:"Wine Tasting Ride", l:"Argentina", c:110}, {n:"Kourou Space Center", l:"French Guiana", c:0}],
+                [{n:"Lost City Trek", l:"Colombia", c:380}, {n:"Perito Moreno Ice Hike", l:"Argentina", c:210}, {n:"Quito TeleferiQO", l:"Ecuador", c:15}],
+                [{n:"4-Day Inca Trail Trek", l:"Peru", c:680}, {n:"Samba Experience", l:"Brazil", c:30}, {n:"Moon Valley", l:"Bolivia", c:15}]
+            ],
+            SEA: [
+                [{n:"Angkor Wat Temple Pass", l:"Cambodia", c:50}, {n:"Ha Long Bay Cruise", l:"Vietnam", c:120}, {n:"Full Moon Party", l:"Thailand", c:35}],
+                [{n:"Kuang Si Falls Trip", l:"Laos", c:15}, {n:"Mount Bromo Sunrise", l:"Indonesia", c:65}, {n:"Island Hopping Tour A", l:"Philippines", c:25}],
+                [{n:"Petronas Towers Entry", l:"Malaysia", c:18}, {n:"Gardens by the Bay", l:"Singapore", c:45}, {n:"Borobudur Combo", l:"Indonesia", c:40}],
+                [{n:"Chiang Mai Cooking", l:"Thailand", c:30}, {n:"Hoi An Tailor Outfit", l:"Vietnam", c:75}, {n:"Cu Chi Tunnels Tour", l:"Vietnam", c:20}],
+                [{n:"Tubing Nam Song", l:"Laos", c:12}, {n:"Elephant Nature Park", l:"Thailand", c:60}, {n:"Batu Caves", l:"Malaysia", c:0}],
+                [{n:"Underground River", l:"Philippines", c:45}, {n:"Bali Surf School", l:"Indonesia", c:90}, {n:"Killing Fields Museum", l:"Cambodia", c:15}],
+                [{n:"Inle Lake Boat Tour", l:"Myanmar", c:25}, {n:"Muay Thai (1 Week)", l:"Thailand", c:110}, {n:"Canyoneering", l:"Philippines", c:35}],
+                [{n:"Sapa Valley Trek", l:"Vietnam", c:55}, {n:"Pai Canyon Sunset", l:"Thailand", c:0}, {n:"Tegallalang Swing", l:"Indonesia", c:15}],
+                [{n:"Seafood Dinner", l:"Myanmar", c:12}, {n:"Chocolate Hills", l:"Philippines", c:30}, {n:"Tea Plantation", l:"Malaysia", c:10}],
+                [{n:"Street Art & Food", l:"Malaysia", c:25}, {n:"Gili Snorkeling", l:"Indonesia", c:15}, {n:"Ayutthaya Bike Tour", l:"Thailand", c:10}],
+                [{n:"Scuba Certification", l:"Thailand", c:350}, {n:"Phong Nha Cave", l:"Vietnam", c:30}, {n:"Ngapali Dinner", l:"Myanmar", c:12}],
+                [{n:"Gibbon Experience", l:"Laos", c:280}, {n:"Komodo Boat Tour", l:"Indonesia", c:150}, {n:"Batu Caves", l:"Malaysia", c:0}]
+            ]
+        };
+
+        const regions = {
+            EU: { cashEl: document.getElementById('cashSavedEU'), monthLabel: document.getElementById('monthsSavedEU'), listEl: document.getElementById('experiencesEU'), daily: 32 },
+            SA: { cashEl: document.getElementById('cashSavedSA'), monthLabel: document.getElementById('monthsSavedSA'), listEl: document.getElementById('experiencesSA'), daily: 18 },
+            SEA: { cashEl: document.getElementById('cashSavedSEA'), monthLabel: document.getElementById('monthsSavedSEA'), listEl: document.getElementById('experiencesSEA'), daily: 16 }
+        };
+
+        function updateResults() {
+            const months = parseInt(slider.value);
+            monthsDisplay.textContent = months;
+            const percentage = ((months - 1) / 11) * 100;
+            slider.style.background = `linear-gradient(to right, #00ffcc 0%, #00ffcc ${percentage}%, #e5e7eb ${percentage}%, #e5e7eb 100%)`;
+
+            // EU
+            const totalEU = months * 30 * regions.EU.daily;
+            regions.EU.cashEl.textContent = totalEU.toLocaleString();
+            regions.EU.monthLabel.textContent = months;
+            renderList(document.getElementById('experiencesEU'), iternaries.EU[months-1], totalEU);
+
+            // SA
+            const totalSA = months * 30 * regions.SA.daily;
+            regions.SA.cashEl.textContent = totalSA.toLocaleString();
+            regions.SA.monthLabel.textContent = months;
+            renderList(document.getElementById('experiencesSA'), iternaries.SA[months-1], totalSA);
+
+            // SEA
+            const totalSEA = months * 30 * regions.SEA.daily;
+            document.getElementById('cashSavedSEA').textContent = totalSEA.toLocaleString();
+            document.getElementById('monthsSavedSEA').textContent = months;
+            renderList(document.getElementById('experiencesSEA'), iternaries.SEA[months-1], totalSEA);
+            
+            // Explicit call to send height after data update
+            sendHeight();
+        }
+
+        function renderList(el, items, totalCash) {
+            let html = '';
+            let cost = 0;
+            items.forEach(item => {
+                html += `<li><span class="check-icon">✓</span> ${item.n} (${item.l}) £${item.c}</li>`;
+                cost += item.c;
+            });
+            const leftover = totalCash - cost;
+            html += `<hr class="border-white/20 my-2">`;
+            html += `<li class="font-bold text-white/90">Remaining Cash: £${leftover.toLocaleString()}</li>`;
+            el.innerHTML = html;
+        }
+
+        slider.addEventListener('input', updateResults);
+        updateResults();
+    </script>
+</body>
+</html>

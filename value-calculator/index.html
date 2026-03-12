@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value Calculator - Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lightweight confetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 50%, #22d3ee 100%);
+            color: #ffffff; 
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .atmospheric-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
+        .blob {
+            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3;
+            animation: blob-float 20s ease-in-out infinite;
+        }
+        .blob-1 { width: 400px; height: 400px; background: #764ba2; top: -50px; right: -50px; }
+        .blob-2 { width: 500px; height: 500px; background: #22d3ee; bottom: -100px; left: -100px; animation-delay: -5s; }
+        
+        @keyframes blob-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 30px) scale(1.1); }
+        }
+
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .perk-card {
+            cursor: pointer;
+            transition: all 0.15s ease;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+        }
+        
+        .perk-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .active-selection {
+            background: rgba(255, 255, 255, 0.3) !important;
+            border-color: #ffffff !important;
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            outline: none;
+        }
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+        .benchmark {
+            position: absolute;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            z-index: 20;
+        }
+
+        @media (min-width: 1024px) {
+            .sticky-panel {
+                position: sticky;
+                top: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-6">
+    <div class="atmospheric-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto space-y-6">
+        
+        <header class="glass-card rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+                <h1 class="text-2xl font-black tracking-tighter uppercase leading-none">Value Calculator</h1>
+                <p class="text-[10px] text-white/60 font-bold uppercase tracking-widest mt-1">Is Your Exchange Fair?</p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 w-full md:w-auto">
+                <div class="flex flex-col">
+                    <label class="text-[8px] font-black text-white/50 uppercase mb-1 tracking-widest">Nightly (£)</label>
+                    <input id="nightly-price" type="number" value="35" oninput="update()" class="glass-input rounded-xl px-4 py-2 w-full font-bold text-xs text-left">
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-[8px] font-black text-white/50 uppercase mb-1 tracking-widest">Stay (Days)</label>
+                    <input id="stay-duration" type="number" value="30" oninput="update()" class="glass-input rounded-xl px-4 py-2 w-full font-bold text-xs text-left">
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-[8px] font-black text-white/50 uppercase mb-1 tracking-widest">Work (Hrs)</label>
+                    <input id="work-hours" type="number" value="20" oninput="update()" class="glass-input rounded-xl px-4 py-2 w-full font-bold text-xs text-left">
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-8 space-y-8">
+                <section>
+                    <div class="flex items-center gap-2 mb-4 px-1">
+                        <i data-lucide="piggy-bank" class="w-4 h-4"></i>
+                        <h3 class="text-[10px] font-black tracking-widest uppercase">Monetary Perks</h3>
+                    </div>
+                    <div id="monetary-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+                </section>
+
+                <section>
+                    <div class="flex items-center gap-2 mb-4 px-1">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <h3 class="text-[10px] font-black tracking-widest uppercase">Experience Perks</h3>
+                    </div>
+                    <div id="experience-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+                </section>
+            </div>
+
+            <div class="lg:col-span-4">
+                <div class="sticky-panel space-y-4">
+                    <div class="glass-card rounded-[2.5rem] p-8">
+                        <p class="text-white/50 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Stay Value</p>
+                        <h2 id="total-val" class="text-6xl font-black tracking-tighter mb-6">£0</h2>
+
+                        <div class="bg-white/10 rounded-2xl p-5 mb-6 border border-white/10">
+                            <p class="text-[9px] font-black text-white/40 uppercase tracking-widest mb-1">Value Per Hour</p>
+                            <p id="hourly-rate" class="text-3xl font-black">£0.00</p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-end">
+                                <span class="text-[10px] font-black text-white/40 uppercase tracking-widest">Exchange Score</span>
+                                <span id="score-label" class="text-lg font-black italic">0 pts</span>
+                            </div>
+                            <div class="relative h-3 w-full bg-black/20 rounded-full overflow-hidden">
+                                <div class="benchmark" style="left: 33%"></div>
+                                <div class="benchmark" style="left: 66%"></div>
+                                <div id="bar" class="h-full bg-white transition-all duration-500 w-0 relative z-10"></div>
+                            </div>
+                            <div class="flex justify-between text-[7px] font-black uppercase tracking-widest opacity-40 px-1">
+                                <span class="w-1/3">Basic</span>
+                                <span class="w-1/3 text-center">Good</span>
+                                <span class="w-1/3 text-right">Great</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-5 space-y-3">
+                        <div class="flex justify-between items-center text-[11px] font-bold">
+                            <span class="opacity-50 uppercase tracking-wider">Total Value of Perks</span>
+                            <span id="break-perks" class="text-cyan-200">+£0</span>
+                        </div>
+                        <div class="pt-3 border-t border-white/10 text-[10px] text-white/70 font-semibold leading-snug h-[2.8em] overflow-hidden line-clamp-2" id="insight-text">
+                            Select assets to calculate ROI.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const MONETARY = [
+            { id: 'm1', name: 'All meals included', pts: 10, val: 18, freq: 'daily', icon: '🍲' },
+            { id: 'm2', name: 'Breakfast only', pts: 5, val: 6, freq: 'daily', icon: '🥐' },
+            { id: 'm3', name: 'Dinner only', pts: 5, val: 6, freq: 'daily', icon: '🍽️' },
+            { id: 'm4', name: 'Bar / cafe credit', pts: 4, val: 8, freq: 'daily', icon: '☕' },
+            { id: 'm5', name: 'Tours & activities', pts: 4, val: 20, freq: 'weekly', icon: '🗺️' },
+            { id: 'm6', name: 'Tickets to events', pts: 4, val: 15, freq: 'weekly', icon: '🎟️' },
+            { id: 'm7', name: 'Private room', pts: 8, val: 20, freq: 'daily', icon: '🔑' },
+            { id: 'm8', name: 'Laundry', pts: 6, val: 5, freq: 'weekly', icon: '🧼' }
+        ];
+
+        const EXPERIENCE = [
+            { id: 'e1', name: 'Kitchen access', pts: 6, icon: '🍳' },
+            { id: 'e2', name: 'Unique hostel design', pts: 7, icon: '🎨' },
+            { id: 'e3', name: 'Natural beauty', pts: 10, icon: '🌲' },
+            { id: 'e4', name: 'Near transport links', pts: 10, icon: '🚉' },
+            { id: 'e5', name: 'Has another branch', pts: 7, icon: '🏢' },
+            { id: 'e6', name: 'Close to attractions', pts: 7, icon: '📍' },
+            { id: 'e7', name: 'Portfolio / Passion', pts: 10, icon: '💼' },
+            { id: 'e8', name: 'Rating above 8.5', pts: 9, icon: '⭐' }
+        ];
+
+        let selected = new Set();
+        let celebrated = false; 
+        const MAX_PTS = 110; 
+        let debounceTimer;
+
+        // COOLING LOGIC: URL sync with debounce (cooling period)
+        function updateUrl() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const url = new URL(window.location.href);
+                url.searchParams.set('n', document.getElementById('nightly-price').value);
+                url.searchParams.set('d', document.getElementById('stay-duration').value);
+                url.searchParams.set('w', document.getElementById('work-hours').value);
+                url.searchParams.set('s', Array.from(selected).join(','));
+                window.history.replaceState({}, '', url);
+            }, 500); // 500ms cooling period
+        }
+
+        function hydrateFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('n')) document.getElementById('nightly-price').value = params.get('n');
+            if (params.has('d')) document.getElementById('stay-duration').value = params.get('d');
+            if (params.has('w')) document.getElementById('work-hours').value = params.get('w');
+            if (params.has('s')) {
+                const ids = params.get('s').split(',');
+                ids.forEach(id => {
+                    if (id) {
+                        selected.add(id);
+                        const el = document.getElementById(`card-${id}`);
+                        if (el) el.classList.add('active-selection');
+                    }
+                });
+            }
+        }
+
+        function init() {
+            const mList = document.getElementById('monetary-list');
+            const eList = document.getElementById('experience-list');
+
+            MONETARY.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'perk-card p-4 flex items-center gap-4';
+                div.id = `card-${item.id}`;
+                div.onclick = () => toggle(item.id);
+                const sub = item.freq === 'daily' ? `£${item.val}/day` : `£${item.val}/wk`;
+                div.innerHTML = `
+                    <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-xl">${item.icon}</div>
+                    <div class="flex-1">
+                        <p class="text-[10px] font-black uppercase leading-tight">${item.name}</p>
+                        <p class="text-[9px] opacity-50 font-bold uppercase tracking-wide">${sub} • ${item.pts} pts</p>
+                    </div>
+                `;
+                mList.appendChild(div);
+            });
+
+            EXPERIENCE.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'perk-card p-4 flex items-center gap-4';
+                div.id = `card-${item.id}`;
+                div.onclick = () => toggle(item.id);
+                div.innerHTML = `
+                    <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-xl">${item.icon}</div>
+                    <div class="flex-1">
+                        <p class="text-[10px] font-black uppercase leading-tight">${item.name}</p>
+                        <p class="text-[9px] opacity-50 font-bold uppercase tracking-wide">${item.pts} Points Value</p>
+                    </div>
+                `;
+                eList.appendChild(div);
+            });
+
+            hydrateFromUrl();
+            lucide.createIcons();
+            update(false); // Initial update without URL push
+        }
+
+        function toggle(id) {
+            const el = document.getElementById(`card-${id}`);
+            if(selected.has(id)) {
+                selected.delete(id);
+                el.classList.remove('active-selection');
+            } else {
+                selected.add(id);
+                el.classList.add('active-selection');
+            }
+            update();
+        }
+
+        function triggerGreatness() {
+            const duration = 2 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
+
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+            const interval = setInterval(function() {
+              const timeLeft = animationEnd - Date.now();
+              if (timeLeft <= 0) return clearInterval(interval);
+              const particleCount = 50 * (timeLeft / duration);
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        function update(shouldSyncUrl = true) {
+            const nightly = parseFloat(document.getElementById('nightly-price').value) || 0;
+            const days = parseFloat(document.getElementById('stay-duration').value) || 1;
+            const weeklyHours = parseFloat(document.getElementById('work-hours').value) || 0;
+
+            const weeks = days / 7;
+            let mValueTotal = 0;
+            let totalPoints = 0;
+
+            MONETARY.forEach(item => {
+                if(selected.has(item.id)) {
+                    mValueTotal += item.freq === 'daily' ? (item.val * days) : (item.val * weeks);
+                    totalPoints += item.pts;
+                }
+            });
+
+            EXPERIENCE.forEach(item => {
+                if(selected.has(item.id)) totalPoints += item.pts;
+            });
+
+            const baseCost = nightly * days;
+            const fullValue = baseCost + mValueTotal;
+            const totalHours = weeklyHours * weeks;
+            const hourlyEq = totalHours > 0 ? (fullValue / totalHours) : 0;
+
+            document.getElementById('total-val').innerText = `£${Math.round(fullValue)}`;
+            document.getElementById('hourly-rate').innerText = `£${hourlyEq.toFixed(2)}`;
+            document.getElementById('score-label').innerText = `${totalPoints} pts`;
+            document.getElementById('break-perks').innerText = `+£${Math.round(mValueTotal)}`;
+            
+            const progress = (totalPoints / MAX_PTS) * 100;
+            document.getElementById('bar').style.width = `${Math.min(progress, 100)}%`;
+
+            if (progress >= 66 && !celebrated) {
+                triggerGreatness();
+                celebrated = true;
+            } else if (progress < 66) {
+                celebrated = false;
+            }
+
+            const insight = document.getElementById('insight-text');
+            if (totalPoints > 0) {
+                if (progress >= 66) {
+                    insight.innerText = `Great Exchange: You're getting more value.`;
+                } else if (progress >= 33) {
+                    insight.innerText = `Good Exchange: This is a very fair exchange.`;
+                } else {
+                    insight.innerText = `Basic Exchange: This covers your essentials.`;
+                }
+            } else {
+                insight.innerText = "Select perks to evaluate whether this is a fair exchange.";
+            }
+
+            if (shouldSyncUrl) updateUrl();
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

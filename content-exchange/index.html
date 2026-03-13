@@ -10,7 +10,8 @@
         body { 
             box-sizing: border-box;
             font-family: 'Inter', sans-serif; 
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 50%, #22d3ee 100%);
+            /* MATCHED COLOR: From Value Calculator */
+            background: #008dd5;
             color: #ffffff; 
             -webkit-font-smoothing: antialiased;
             margin: 0;
@@ -20,12 +21,12 @@
             min-height: 100vh;
         }
         .hw-card { 
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border-radius: 2rem; 
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2); 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
         }
         .hidden { display: none !important; }
         
@@ -43,26 +44,27 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(100px);
-            opacity: 0.4;
+            opacity: 0.15;
             animation: blob-float 20s ease-in-out infinite;
         }
-        .blob-1 { width: 500px; height: 500px; background: #764ba2; top: -100px; right: -100px; }
-        .blob-2 { width: 600px; height: 600px; background: #22d3ee; bottom: -200px; left: -200px; animation-delay: -5s; }
+        /* MATCHED BLOBS: From Value Calculator */
+        .blob-1 { width: 400px; height: 400px; background: #6610f2; top: -50px; right: -50px; }
+        .blob-2 { width: 500px; height: 500px; background: #00ffc5; bottom: -100px; left: -100px; animation-delay: -5s; }
         
         @keyframes blob-float {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(40px, 40px) scale(1.1); }
+            50% { transform: translate(30px, 30px) scale(1.1); }
         }
 
         .glass-input {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #ffffff;
             transition: all 0.3s ease;
         }
         .glass-input:focus {
             background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.5);
             outline: none;
         }
         .glass-input::placeholder { color: rgba(255, 255, 255, 0.5); }
@@ -84,8 +86,8 @@
 
         .perk-radio:checked + span { color: #ffffff; }
         .perk-container:has(.perk-radio:checked) {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.3);
+            border-color: #ffffff;
         }
     </style>
 </head>
@@ -219,7 +221,6 @@
     </main>
 
     <script>
-        // COOLING LOGIC: Sync state with URL
         function updateUrlParams(paramsObj) {
             const url = new URL(window.location.href);
             Object.keys(paramsObj).forEach(key => {
@@ -231,8 +232,6 @@
 
         window.onload = () => {
             const params = new URLSearchParams(window.location.search);
-            
-            // Hydrate the form if data exists
             if (params.has('content')) {
                 document.getElementById('creator-url').value = params.get('content');
             }
@@ -241,15 +240,11 @@
                 const radio = document.querySelector(`input[name="perk"][value="${perk}"]`);
                 if (radio) radio.checked = true;
             }
-
-            // Switch views based on 'mode' param
             if (params.get('mode') === 'review') {
                 document.getElementById('page-creator').classList.add('hidden');
                 document.getElementById('page-business').classList.remove('hidden');
-                
                 const contentUrl = params.get('content');
                 const requestedPerk = params.get('perk') || 'General Exchange';
-                
                 document.getElementById('business-view-link').href = contentUrl;
                 document.getElementById('display-perks').innerHTML = `
                     <span class="block text-[9px] uppercase tracking-tighter text-white/50 mb-1">Requested Perk:</span>
@@ -305,15 +300,8 @@
         function processCreatorRequest(method) {
             const postUrl = document.getElementById('creator-url').value;
             const selectedPerk = document.querySelector('input[name="perk"]:checked');
-
-            if (!postUrl) {
-                alertModal("Please provide an Instagram content link.");
-                return;
-            }
-            if (!selectedPerk) {
-                alertModal("Please select a perk.");
-                return;
-            }
+            if (!postUrl) { alertModal("Please provide an Instagram content link."); return; }
+            if (!selectedPerk) { alertModal("Please select a perk."); return; }
 
             const perkValue = selectedPerk.value;
             const currentUrl = new URL(window.location.href);
@@ -322,9 +310,7 @@
             currentUrl.searchParams.set('perk', perkValue);
             const currentApprovalLink = currentUrl.toString();
 
-            // Store in URL immediately so page state is "hot"
             updateUrlParams({ content: postUrl, perk: perkValue });
-
             document.getElementById('generated-link-text').innerText = currentApprovalLink;
             document.getElementById('approval-link-container').classList.remove('hidden');
 
@@ -356,7 +342,6 @@
             let body;
             const params = new URLSearchParams(window.location.search);
             const requestedPerk = params.get('perk') || 'the requested perk';
-
             if (type === 'accept') {
                 const code = document.getElementById('promo-input').value;
                 if (!code) generateRandomCode();
@@ -365,7 +350,6 @@
             } else {
                 body = `Hi,\n\nThanks for sharing your post. We aren't able to move forward with a collaboration for the ${requestedPerk} at this time, but we really appreciate your support and would love to encourage you to try again!\n\nBest,\nTeam [Your Name]`;
             }
-
             if (method === 'email') {
                 showModal(`${type === 'accept' ? 'Approval' : 'Decline'} via Email`, body, () => {
                     window.location.href = `mailto:?subject=Update Regarding Your Collaboration&body=${encodeURIComponent(body)}`;

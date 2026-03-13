@@ -16,8 +16,9 @@
 
         body { 
             font-family: 'Inter', sans-serif; 
-            /* COOLING OPTIMIZATION 2: Replaced heavy animated blobs with a high-performance static gradient */
-            background: radial-gradient(circle at top left, #764ba2, #667eea 40%, #22d3ee 100%);
+            /* UPDATED: Matches your #008dd5 hex code exactly with subtle depth using your provided accents */
+            background: radial-gradient(circle at top right, #6610f210, #008dd5 60%, #00ffc510);
+            background-color: #008dd5; 
             background-attachment: fixed;
             color: #ffffff; 
             min-height: 100vh;
@@ -203,7 +204,6 @@
         const totalSteps = 4;
         let userData = {};
 
-        // ADDED 5TH HOSTEL OPTION
         const hostels = [
             { id: 1, name: "Nomad Garden - Lisbon", ig: "nomadgardenlisbon", whatsapp: "351912345678", email: "stay@nomadgarden.pt" },
             { id: 2, name: "Pura Vida Hostel - Costa Rica", ig: "puravidahostelcr", whatsapp: "50688887777", email: "workaway@puravida.com" },
@@ -212,7 +212,6 @@
             { id: 5, name: "Alpine Social - Switzerland", ig: "alpinesocial", whatsapp: "41791234567", email: "volunteers@alpinesocial.ch" }
         ];
 
-        // Optimized DOM caching
         const els = {
             select: document.getElementById('hostel-choice'),
             stepLabel: document.getElementById('step-label'),
@@ -222,7 +221,7 @@
             nextBtn: document.getElementById('next-btn'),
             navFooter: document.getElementById('nav-footer'),
             msgBody: document.getElementById('message-body'),
-            dots: null // populated on load
+            dots: null 
         };
 
         function initHostels() {

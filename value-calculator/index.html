@@ -12,7 +12,7 @@
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 50%, #22d3ee 100%);
+            background: #008dd5;
             color: #ffffff; 
             min-height: 100vh;
             margin: 0;
@@ -25,11 +25,11 @@
             z-index: 0; pointer-events: none;
         }
         .blob {
-            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3;
+            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15;
             animation: blob-float 20s ease-in-out infinite;
         }
-        .blob-1 { width: 400px; height: 400px; background: #764ba2; top: -50px; right: -50px; }
-        .blob-2 { width: 500px; height: 500px; background: #22d3ee; bottom: -100px; left: -100px; animation-delay: -5s; }
+        .blob-1 { width: 400px; height: 400px; background: #6610f2; top: -50px; right: -50px; }
+        .blob-2 { width: 500px; height: 500px; background: #00ffc5; bottom: -100px; left: -100px; animation-delay: -5s; }
         
         @keyframes blob-float {
             0%, 100% { transform: translate(0, 0) scale(1); }
@@ -93,7 +93,8 @@
         }
     </style>
 </head>
-<body class="p-4 md:p-6">
+<!-- UPDATED: Added py-12 (top and bottom padding) to the body class -->
+<body class="px-4 md:px-6 py-12">
     <div class="atmospheric-bg">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
@@ -213,7 +214,6 @@
         const MAX_PTS = 110; 
         let debounceTimer;
 
-        // COOLING LOGIC: URL sync with debounce (cooling period)
         function updateUrl() {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
@@ -223,7 +223,7 @@
                 url.searchParams.set('w', document.getElementById('work-hours').value);
                 url.searchParams.set('s', Array.from(selected).join(','));
                 window.history.replaceState({}, '', url);
-            }, 500); // 500ms cooling period
+            }, 500); 
         }
 
         function hydrateFromUrl() {
@@ -280,7 +280,7 @@
 
             hydrateFromUrl();
             lucide.createIcons();
-            update(false); // Initial update without URL push
+            update(false); 
         }
 
         function toggle(id) {

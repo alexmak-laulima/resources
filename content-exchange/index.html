@@ -2,7 +2,7 @@
 <html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Laulima | Content Exchange</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -10,7 +10,6 @@
         body { 
             box-sizing: border-box;
             font-family: 'Inter', sans-serif; 
-            /* MATCHED COLOR: From Value Calculator */
             background: #008dd5;
             color: #ffffff; 
             -webkit-font-smoothing: antialiased;
@@ -24,7 +23,7 @@
             background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            border-radius: 2rem; 
+            border-radius: 2px; 
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
         }
@@ -47,7 +46,6 @@
             opacity: 0.15;
             animation: blob-float 20s ease-in-out infinite;
         }
-        /* MATCHED BLOBS: From Value Calculator */
         .blob-1 { width: 400px; height: 400px; background: #6610f2; top: -50px; right: -50px; }
         .blob-2 { width: 500px; height: 500px; background: #00ffc5; bottom: -100px; left: -100px; animation-delay: -5s; }
         
@@ -61,6 +59,8 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #ffffff;
             transition: all 0.3s ease;
+            font-size: 16px !important;
+            border-radius: 2px !important;
         }
         .glass-input:focus {
             background: rgba(255, 255, 255, 0.15);
@@ -89,6 +89,8 @@
             background: rgba(255, 255, 255, 0.3);
             border-color: #ffffff;
         }
+
+        .rounded-xl, .rounded-3xl, .rounded-lg, .rounded-2xl { border-radius: 2px !important; }
     </style>
 </head>
 <body class="p-6">
@@ -98,7 +100,6 @@
     </div>
 
     <main class="max-w-md w-full relative z-10">
-        <!-- STEP 1: CREATOR SUBMISSION -->
         <section id="page-creator" class="hw-card p-8 md:p-10">
             <div class="mb-8 flex justify-between items-start">
                 <div>
@@ -106,7 +107,6 @@
                     <p class="text-white/70 text-sm mt-1">Submit your content to verify your perks.</p>
                 </div>
                 <button onclick="resetCreator()" class="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white flex items-center gap-1 transition-all">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
                     Reset
                 </button>
             </div>
@@ -114,51 +114,46 @@
             <div class="space-y-5">
                 <div>
                     <label class="block text-[10px] font-black uppercase tracking-widest text-white/60 mb-2">Instagram Post Link</label> 
-                    <input type="url" id="creator-url" placeholder="Paste Instagram post or reel link here..." class="w-full glass-input rounded-xl py-4 px-6 text-sm">
+                    <input type="url" id="creator-url" placeholder="Paste Instagram post or reel link here..." class="w-full glass-input py-4 px-6 text-sm">
                 </div>
 
                 <div>
                     <label class="block text-[10px] font-black uppercase tracking-widest text-white/60 mb-3">Choose Your Perk</label>
                     <div class="grid grid-cols-1 gap-2">
-                        <label class="perk-container flex items-center gap-3 p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 cursor-pointer transition-all"> 
+                        <label class="perk-container flex items-center gap-3 p-4 bg-white/5 border border-white/10 hover:bg-white/10 cursor-pointer transition-all"> 
                             <input type="radio" name="perk" value="1 Night Complimentary Stay" class="perk-radio w-4 h-4 accent-white"> 
                             <span class="text-xs font-semibold text-white/80">🛌 1 Night Complimentary Stay</span> 
                         </label> 
-                        <label class="perk-container flex items-center gap-3 p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 cursor-pointer transition-all"> 
-                            <input type="radio" name="perk" value="25% Discount Voucher" class="perk-radio w-4 h-4 accent-white"> 
-                            <span class="text-xs font-semibold text-white/80">🎟️ 25% Discount Voucher</span> 
+                        <label class="perk-container flex items-center gap-3 p-4 bg-white/5 border border-white/10 hover:bg-white/10 cursor-pointer transition-all"> 
+                            <input type="radio" name="perk" value="50% Discount Voucher" class="perk-radio w-4 h-4 accent-white"> 
+                            <span class="text-xs font-semibold text-white/80">🎟️ 50% Discount Voucher</span> 
                         </label>
                     </div>
                 </div>
 
                 <div id="approval-link-container" class="hidden animate-in fade-in slide-in-from-top-2 duration-500">
                     <label class="block text-[10px] font-black uppercase tracking-widest text-white/60 mb-2">Review Submission Link</label>
-                    <div class="bg-white/10 border border-white/20 p-4 rounded-xl flex items-start gap-3">
+                    <div class="bg-white/10 border border-white/20 p-4 flex items-start gap-3">
                         <div class="flex-1 min-w-0">
                             <div id="generated-link-text" class="url-preview-clamp wrap-content text-[10px] font-mono text-white/80 leading-relaxed"></div>
                         </div>
-                        <button onclick="copyGeneratedLink()" class="shrink-0 p-2 bg-white/20 rounded-lg text-white hover:bg-white/30 transition-all">
-                            <svg width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-                            </svg>
+                        <button onclick="copyGeneratedLink()" class="shrink-0 p-2 bg-white/20 text-white hover:bg-white/30 transition-all">
+                            Copy
                         </button>
                     </div>
                 </div>
 
                 <div class="pt-2 space-y-3">
-                    <button onclick="processCreatorRequest('email')" class="w-full bg-white text-slate-900 py-4 rounded-xl font-bold uppercase tracking-widest text-[11px] hover:bg-slate-100 transition-all shadow-xl"> 
+                    <button onclick="processCreatorRequest('email')" class="w-full bg-white text-slate-900 py-4 font-bold uppercase tracking-widest text-[11px] hover:bg-slate-100 transition-all shadow-xl"> 
                         Send via Email 
                     </button> 
-                    <button onclick="processCreatorRequest('instagram')" class="w-full bg-transparent border border-white/30 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-[11px] hover:bg-white/10 transition-all flex items-center justify-center gap-2">
-                        <svg width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                        </svg><span>Instagram DM</span> 
+                    <button onclick="processCreatorRequest('instagram')" class="w-full bg-transparent border border-white/30 text-white py-4 font-bold uppercase tracking-widest text-[11px] hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+                        <span>Instagram DM</span> 
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- STEP 2: BUSINESS APPROVAL -->
         <section id="page-business" class="hw-card p-8 md:p-10 hidden">
             <div class="mb-8 flex justify-between items-start">
                 <div>
@@ -169,30 +164,24 @@
             </div>
             
             <div class="space-y-6">
-                <div class="bg-white/10 p-6 rounded-xl border border-white/10">
+                <div class="bg-white/10 p-6 border border-white/10">
                     <p class="text-[9px] font-black uppercase tracking-widest text-white/50 mb-3">Submission Details</p>
-                    <a id="business-view-link" href="#" target="_blank" class="flex items-center gap-2 text-sm font-bold text-white underline decoration-white/30"> Open Social Post 
-                        <svg width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" x2="21" y1="14" y2="3" />
-                        </svg>
-                    </a>
+                    <a id="business-view-link" href="#" target="_blank" class="flex items-center gap-2 text-sm font-bold text-white underline decoration-white/30"> Open Social Post </a>
                     <div id="display-perks" class="text-xs font-medium text-white/90 mt-3 pt-3 border-t border-white/10"></div>
                 </div>
 
                 <div>
                     <label class="block text-[10px] font-black uppercase tracking-widest text-white/60 mb-3">Reward Code</label>
                     <div class="flex gap-2">
-                        <input type="text" id="promo-input" placeholder="e.g. GIFT-X21" class="flex-1 glass-input rounded-xl py-4 px-5 font-mono font-bold uppercase text-sm tracking-widest"> 
-                        <button onclick="generateRandomCode()" class="bg-white/20 text-white px-4 rounded-xl hover:bg-white/30 transition-all border border-white/10">✨</button>
+                        <input type="text" id="promo-input" placeholder="e.g. GIFT-X21" class="flex-1 glass-input py-4 px-5 font-mono font-bold uppercase text-sm tracking-widest"> 
+                        <button onclick="generateRandomCode()" class="bg-white/20 text-white px-4 hover:bg-white/30 transition-all border border-white/10">✨</button>
                     </div>
                 </div>
 
                 <div class="space-y-3 pt-2">
-                    <button onclick="processBusinessResponse('accept', 'email')" class="w-full bg-white text-slate-900 py-4 rounded-xl font-bold uppercase tracking-widest text-[11px] hover:bg-slate-100 transition-all shadow-xl"> Approve via Email </button> 
-                    <button onclick="processBusinessResponse('accept', 'instagram')" class="w-full bg-transparent border border-white/30 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-[11px] hover:bg-white/10 transition-all flex items-center justify-center gap-2">
-                        <svg width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                        </svg><span>Approve via Instagram</span> 
+                    <button onclick="processBusinessResponse('accept', 'email')" class="w-full bg-white text-slate-900 py-4 font-bold uppercase tracking-widest text-[11px] hover:bg-slate-100 transition-all shadow-xl"> Approve via Email </button> 
+                    <button onclick="processBusinessResponse('accept', 'instagram')" class="w-full bg-transparent border border-white/30 text-white py-4 font-bold uppercase tracking-widest text-[11px] hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+                        <span>Approve via Instagram</span> 
                     </button> 
                     <div class="pt-2 border-t border-white/5 flex flex-col gap-2">
                         <button onclick="processBusinessResponse('decline', 'email')" class="w-full text-white/50 text-[10px] font-bold uppercase tracking-widest py-2 hover:text-white transition-all text-center"> Decline via Email </button>
@@ -202,18 +191,17 @@
             </div>
         </section>
 
-        <!-- PREVIEW MODAL -->
         <div id="preview-modal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-6 hidden">
-            <div class="hw-card w-full max-w-md rounded-3xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-300">
+            <div class="hw-card w-full max-w-md overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-300">
                 <div class="p-6 border-b border-white/10 flex justify-between architecture items-center bg-white/5">
                     <span id="modal-title" class="text-[9px] font-black uppercase tracking-widest text-white/70">Message Preview</span> 
-                    <button onclick="closePreview()" class="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all">✕</button>
+                    <button onclick="closePreview()" class="h-8 w-8 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all">✕</button>
                 </div>
                 <div class="p-8 bg-white/5 max-h-[60vh] overflow-y-auto">
                     <div id="email-body-text" class="text-xs leading-relaxed text-white/90 wrap-content font-medium"></div>
                 </div>
                 <div class="p-6 bg-white/5 space-y-3 border-t border-white/10">
-                    <button id="confirm-action-btn" class="w-full bg-white text-slate-900 py-5 rounded-xl font-bold uppercase tracking-widest text-[11px] active:scale-95 transition-all shadow-lg"> Confirm & Send </button>
+                    <button id="confirm-action-btn" class="w-full bg-white text-slate-900 py-5 font-bold uppercase tracking-widest text-[11px] active:scale-95 transition-all shadow-lg"> Confirm & Send </button>
                     <p id="modal-hint" class="text-center text-[9px] text-white/40 hidden italic">This will copy the text and open Instagram for you.</p>
                 </div>
             </div>
@@ -294,7 +282,7 @@
             document.body.removeChild(tempInput);
             const btn = document.querySelector('[onclick="copyGeneratedLink()"]');
             btn.innerHTML = '✓';
-            setTimeout(() => btn.innerHTML = '<svg width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg>', 2000);
+            setTimeout(() => btn.innerHTML = 'Copy', 2000);
         }
 
         function processCreatorRequest(method) {

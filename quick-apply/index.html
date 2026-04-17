@@ -11,7 +11,7 @@
         
         body { 
             font-family: 'Brown', 'Inter', sans-serif; 
-            background: #008dd5; /* Back to your signature blue */
+            background: #008dd5;
             color: #1e293b; 
             margin: 0;
             min-height: 100vh;
@@ -49,7 +49,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
             width: 100%;
-            max-width: 480px;
+            max-width: 900px; /* Widened for side-by-side */
             position: relative;
             z-index: 10;
         }
@@ -79,17 +79,17 @@
         }
 
         .tag-chip {
-            padding: 8px 14px;
+            padding: 8px 12px;
             background: #f1f5f9;
             border: 1px solid #e2e8f0;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            margin: 4px 2px;
+            margin: 3px;
             color: #475569;
         }
         .tag-chip.active {
@@ -105,12 +105,12 @@
             font-size: 14px;
             line-height: 1.6;
             color: #334155;
-            min-height: 150px;
+            min-height: 250px;
             outline: none;
         }
 
         .container-padding {
-            padding: 1.5rem;
+            padding: 1rem;
             width: 100%;
             display: flex;
             justify-content: center;
@@ -124,74 +124,78 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <main class="hw-card p-6 md:p-8">
-        <header class="mb-8">
-            <h1 class="text-2xl font-black text-slate-900">Quick Apply 🚀</h1>
-            <p class="text-slate-500 text-sm">Craft your perfect pitch in seconds.</p>
+    <main class="hw-card p-6 md:p-10">
+        <header class="mb-8 border-b border-slate-100 pb-6">
+            <h1 class="text-3xl font-black text-slate-900">Quick Apply 🚀</h1>
+            <p class="text-slate-500 text-sm">Fill in your details and pick your skills to generate your hostel pitch.</p>
         </header>
 
-        <div id="step-1" class="space-y-6">
-            <div class="space-y-4">
+        <div id="step-1">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="section-label">Full Name</label>
+                        <input type="text" id="user-name" placeholder="John Doe" class="input-field">
+                    </div>
+                    <div>
+                        <label class="section-label">Instagram Handle (Optional)</label>
+                        <input type="text" id="user-ig" placeholder="@yourhandle" class="input-field">
+                    </div>
+                    <div>
+                        <label class="section-label">Volunteer Dates</label>
+                        <input type="text" id="user-dates" placeholder="e.g. Early July for 3 weeks" class="input-field">
+                    </div>
+                </div>
+
                 <div>
-                    <label class="section-label">Full Name</label>
-                    <input type="text" id="user-name" placeholder="John Doe" class="input-field">
-                </div>
-                <div>
-                    <label class="section-label">Instagram Handle (Optional)</label>
-                    <input type="text" id="user-ig" placeholder="@yourhandle" class="input-field">
-                </div>
-            </div>
-
-            <div>
-                <label class="section-label">Skills & Experience</label>
-                <div class="flex flex-wrap -mx-1">
-                    <div class="tag-chip" onclick="toggleTag(this, 'Reception')">💻 Reception</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Party Rep')">📣 Party Rep</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Yoga')">🧘 Yoga</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Mural Painting')">🎨 Mural Painting</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Tour Guiding')">🗺️ Tour Guiding</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Housekeeping')">🧹 Housekeeping</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Social Media')">📱 Social Media</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Event Hosting')">🎉 Event Hosting</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Maintenance')">🛠️ Maintenance</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Bartending')">🍹 Bartending</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Kitchen Help')">🍳 Kitchen Help</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Content Creation')">🎥 Content Creation</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Leading Activities')">⚽️ Leading Activities</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Graphic Design')">✒️ Graphic Design</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'DJing')">🎧 DJing</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Hostel Experience')">🏨 Worked in Hostels</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Teaching Languages')">🗣️ Teaching Languages</div>
-                    <div class="tag-chip" onclick="toggleTag(this, 'Sports Coaching')">🏆 Sports Coaching</div>
+                    <label class="section-label">Skills & Experience</label>
+                    <div class="flex flex-wrap -mx-1">
+                        <div class="tag-chip" onclick="toggleTag(this, 'Reception')">💻 Reception</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Party Rep')">📣 Party Rep</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Yoga')">🧘 Yoga</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Mural Painting')">🎨 Mural Painting</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Tour Guiding')">🗺️ Tour Guiding</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Housekeeping')">🧹 Housekeeping</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Social Media')">📱 Social Media</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Event Hosting')">🎉 Event Hosting</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Maintenance')">🛠️ Maintenance</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Bartending')">🍹 Bartending</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Kitchen Help')">🍳 Kitchen Help</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Content Creation')">🎥 Content Creation</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Leading Activities')">⚽️ Leading Activities</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Graphic Design')">✒️ Graphic Design</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'DJing')">🎧 DJing</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Hostel Experience')">🏨 Worked in Hostels</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Teaching Languages')">🗣️ Teaching Languages</div>
+                        <div class="tag-chip" onclick="toggleTag(this, 'Sports Coaching')">🏆 Sports Coaching</div>
+                    </div>
                 </div>
             </div>
 
-            <div>
-                <label class="section-label">Volunteer Dates</label>
-                <input type="text" id="user-dates" placeholder="e.g. Early July for 3 weeks" class="input-field">
-            </div>
-
-            <button onclick="generateStatement()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[12px] shadow-lg hover:brightness-110 transition-all mt-4">
+            <button onclick="generateStatement()" class="w-full bg-[#008dd5] text-white py-5 font-bold uppercase tracking-widest text-[12px] shadow-lg hover:brightness-110 transition-all mt-10">
                 Build My Statement
             </button>
         </div>
 
-        <div id="step-2" class="hidden space-y-6">
+        <div id="step-2" class="hidden max-w-2xl mx-auto space-y-6">
             <div>
                 <label class="section-label text-slate-400">Personalise your message below ✏️</label>
                 <div id="final-preview" class="edit-area" contenteditable="true"></div>
             </div>
 
-            <div class="space-y-3">
+            <div class="space-y-4">
                 <button id="copy-btn" onclick="copyText()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[12px] shadow-lg flex items-center justify-center gap-2">
                     <span id="copy-text">Copy Statement</span>
                 </button>
                 
-                <p class="text-center text-[9px] font-black text-slate-400 uppercase tracking-widest py-1">Quick Launch App:</p>
-                <div class="grid grid-cols-3 gap-2">
-                    <button onclick="window.open('https://wa.me/')" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
-                    <button onclick="window.open('https://instagram.com/direct/inbox/')" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
-                    <button onclick="window.location.href='mailto:'" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">Email</button>
+                <div class="text-center">
+                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-3">Quick Launch App:</p>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button onclick="window.open('https://wa.me/')" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
+                        <button onclick="window.open('https://instagram.com/direct/inbox/')" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
+                        <button onclick="window.location.href='mailto:'" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">Email</button>
+                    </div>
                 </div>
                 
                 <button onclick="resetBuilder()" class="w-full text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4 text-center">← Edit Details</button>

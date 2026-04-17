@@ -22,7 +22,6 @@
             overflow-x: hidden;
         }
 
-        /* BACKGROUND ELEMENTS */
         .atmospheric-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             overflow: hidden; z-index: 0; pointer-events: none;
@@ -39,7 +38,6 @@
             50% { transform: translate(30px, 30px) scale(1.1); }
         }
 
-        /* 2px BRAND RADIUS */
         .hw-card, .input-field, button, .tag-chip, .edit-area { 
             border-radius: 2px !important; 
         }
@@ -49,9 +47,17 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
             width: 100%;
-            max-width: 900px; /* Widened for side-by-side */
+            max-width: 900px;
             position: relative;
             z-index: 10;
+            /* TIGHTER FIXED HEIGHT TO PREVENT JUMPING */
+            min-height: 600px; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 1024px) {
+            .hw-card { min-height: 850px; }
         }
 
         .section-label {
@@ -68,7 +74,7 @@
             width: 100%;
             background: #f1f5f9;
             border: 1px solid #e2e8f0;
-            padding: 14px 16px;
+            padding: 12px 16px;
             font-size: 16px !important;
             color: #1e293b;
         }
@@ -79,7 +85,7 @@
         }
 
         .tag-chip {
-            padding: 8px 12px;
+            padding: 6px 10px;
             background: #f1f5f9;
             border: 1px solid #e2e8f0;
             font-size: 11px;
@@ -88,8 +94,8 @@
             transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            margin: 3px;
+            gap: 4px;
+            margin: 2px;
             color: #475569;
         }
         .tag-chip.active {
@@ -125,21 +131,20 @@
     </div>
 
     <main class="hw-card p-6 md:p-10">
-        <header class="mb-8 border-b border-slate-100 pb-6">
-            <h1 class="text-3xl font-black text-slate-900">Quick Apply 🚀</h1>
-            <p class="text-slate-500 text-sm">Fill in your details and pick your skills to generate your hostel pitch.</p>
+        <header class="mb-6 border-b border-slate-100 pb-4">
+            <h1 class="text-2xl font-black text-slate-900">Quick Apply 🚀</h1>
+            <p class="text-slate-500 text-sm">Build your perfect pitch in seconds.</p>
         </header>
 
-        <div id="step-1">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                
-                <div class="space-y-6">
+        <div id="step-1" class="flex flex-col flex-grow">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-grow">
+                <div class="space-y-4">
                     <div>
                         <label class="section-label">Full Name</label>
                         <input type="text" id="user-name" placeholder="John Doe" class="input-field">
                     </div>
                     <div>
-                        <label class="section-label">Instagram Handle (Optional)</label>
+                        <label class="section-label">Instagram Handle</label>
                         <input type="text" id="user-ig" placeholder="@yourhandle" class="input-field">
                     </div>
                     <div>
@@ -172,40 +177,39 @@
                     </div>
                 </div>
             </div>
-
-            <button onclick="generateStatement()" class="w-full bg-[#008dd5] text-white py-5 font-bold uppercase tracking-widest text-[12px] shadow-lg hover:brightness-110 transition-all mt-10">
+            <button onclick="generateStatement()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg hover:brightness-110 transition-all mt-6">
                 Build My Statement
             </button>
         </div>
 
-        <div id="step-2" class="hidden max-w-2xl mx-auto space-y-6">
-            <div>
-                <label class="section-label text-slate-400">Personalise your message below ✏️</label>
-                <div id="final-preview" class="edit-area" contenteditable="true"></div>
-            </div>
+        <div id="step-2" class="hidden flex-grow flex flex-col justify-between max-w-2xl mx-auto w-full">
+            <div class="space-y-6">
+                <div>
+                    <label class="section-label text-slate-400">Personalise your message ✏️</label>
+                    <div id="final-preview" class="edit-area" contenteditable="true"></div>
+                </div>
 
-            <div class="space-y-4">
-                <button id="copy-btn" onclick="copyText()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[12px] shadow-lg flex items-center justify-center gap-2">
-                    <span id="copy-text">Copy Statement</span>
-                </button>
-                
-                <div class="text-center">
-                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-3">Quick Launch App:</p>
-                    <div class="grid grid-cols-3 gap-3">
-                        <button onclick="window.open('https://wa.me/')" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
-                        <button onclick="window.open('https://instagram.com/direct/inbox/')" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
-                        <button onclick="window.location.href='mailto:'" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">Email</button>
+                <div class="space-y-4">
+                    <button id="copy-btn" onclick="copyText()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg flex items-center justify-center gap-2">
+                        <span id="copy-text">Copy Statement</span>
+                    </button>
+                    
+                    <div class="text-center">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Quick Launch:</p>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="window.open('https://wa.me/')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
+                            <button onclick="window.open('https://instagram.com/direct/inbox/')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
+                            <button onclick="window.location.href='mailto:'" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Email</button>
+                        </div>
                     </div>
                 </div>
-                
-                <button onclick="resetBuilder()" class="w-full text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4 text-center">← Edit Details</button>
             </div>
+            <button onclick="resetBuilder()" class="w-full text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4 pb-2 text-center">← Edit Details</button>
         </div>
     </main>
 
     <script>
         let selectedTags = [];
-
         function toggleTag(el, val) {
             el.classList.toggle('active');
             if (selectedTags.includes(val)) {
@@ -214,40 +218,31 @@
                 selectedTags.push(val);
             }
         }
-
         function generateStatement() {
             const name = document.getElementById('user-name').value || "Friend";
             const handle = document.getElementById('user-ig').value;
             const dates = document.getElementById('user-dates').value || "the near future";
-            
-            let skillsPart = selectedTags.length > 0 
-                ? `I have experience with ${selectedTags.join(", ")}.`
-                : "I'm a hard-working individual ready to help out wherever needed.";
-
+            let skillsPart = selectedTags.length > 0 ? `I have experience with ${selectedTags.join(", ")}.` : "I'm a hard-working individual ready to help out wherever needed.";
             let igPart = handle ? `You can check out my profile here: ${handle}` : "";
-
             const message = `Hi Team! 👋\n\nMy name is ${name} and I'm reaching out because I'd love to volunteer with you! \n\nI'm looking for a position around ${dates}. ${skillsPart} I'm easy-going, love the hostel vibe, and I'm ready to get stuck in. \n\n${igPart}\n\nDo you have any availability for volunteers during those dates? \n\nBest, ${name}`;
-
             document.getElementById('final-preview').innerText = message;
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.remove('hidden');
             window.scrollTo(0, 0);
         }
-
         function copyText() {
             const text = document.getElementById('final-preview').innerText;
             navigator.clipboard.writeText(text).then(() => {
                 const btn = document.getElementById('copy-btn');
                 const btnText = document.getElementById('copy-text');
                 btn.style.backgroundColor = "#22c55e"; 
-                btnText.innerText = "Copied! Now choose an app";
+                btnText.innerText = "Copied!";
                 setTimeout(() => {
                     btn.style.backgroundColor = "#008dd5";
                     btnText.innerText = "Copy Statement";
                 }, 2000);
             });
         }
-
         function resetBuilder() {
             document.getElementById('step-2').classList.add('hidden');
             document.getElementById('step-1').classList.remove('hidden');

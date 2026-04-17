@@ -11,24 +11,47 @@
         
         body { 
             font-family: 'Brown', 'Inter', sans-serif; 
-            background: transparent; /* Fully transparent */
+            background: #008dd5; /* Back to your signature blue */
             color: #1e293b; 
             margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
+        /* BACKGROUND ELEMENTS */
+        .atmospheric-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden; z-index: 0; pointer-events: none;
+        }
+        .blob {
+            position: absolute; border-radius: 50%; filter: blur(100px);
+            opacity: 0.2; animation: float 20s ease-in-out infinite;
+        }
+        .blob-1 { width: 400px; height: 400px; background: #6610f2; top: -50px; right: -50px; }
+        .blob-2 { width: 500px; height: 500px; background: #00ffc5; bottom: -100px; left: -100px; animation-delay: -5s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 30px) scale(1.1); }
+        }
+
+        /* 2px BRAND RADIUS */
         .hw-card, .input-field, button, .tag-chip, .edit-area { 
             border-radius: 2px !important; 
         }
 
         .hw-card { 
             background: #ffffff;
-            border: 1px solid #e2e8f0;
-            /* Shadow removed for a flatter, cleaner embed look */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
             width: 100%;
             max-width: 480px;
-            margin: auto;
+            position: relative;
+            z-index: 10;
         }
 
         .section-label {
@@ -86,13 +109,20 @@
             outline: none;
         }
 
-        /* Responsive padding for embed */
         .container-padding {
-            padding: 1rem;
+            padding: 1.5rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
-<body class="container-padding flex items-start justify-center">
+<body class="container-padding">
+
+    <div class="atmospheric-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
 
     <main class="hw-card p-6 md:p-8">
         <header class="mb-8">

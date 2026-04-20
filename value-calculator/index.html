@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Value Calculator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -45,7 +45,6 @@
             50% { transform: translate(30px, 30px) scale(1.1); }
         }
 
-        /* 2px Edges and Design Language */
         .hw-card, .input-field, button, .perk-card, .score-box, .progress-bg { 
             border-radius: 2px !important; 
         }
@@ -75,7 +74,8 @@
             background: #f1f5f9;
             border: 1px solid #e2e8f0;
             padding: 10px 14px;
-            font-size: 14px;
+            /* FIXED: Set to 16px to stop mobile browsers from zooming in */
+            font-size: 16px;
             color: #1e293b;
             font-weight: 700;
             outline: none;
@@ -85,7 +85,6 @@
             background: #ffffff;
         }
 
-        /* Perk Card Accents */
         .perk-card {
             cursor: pointer;
             transition: all 0.2s ease;

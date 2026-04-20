@@ -22,6 +22,7 @@
             overflow-x: hidden;
         }
 
+        /* BACKGROUND ELEMENTS */
         .atmospheric-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             overflow: hidden; z-index: 0; pointer-events: none;
@@ -50,6 +51,7 @@
             max-width: 900px;
             position: relative;
             z-index: 10;
+            /* HEIGHT STABILITY */
             min-height: 600px; 
             display: flex;
             flex-direction: column;
@@ -209,6 +211,7 @@
 
     <script>
         let selectedTags = [];
+
         function toggleTag(el, val) {
             el.classList.toggle('active');
             if (selectedTags.includes(val)) {
@@ -217,6 +220,7 @@
                 selectedTags.push(val);
             }
         }
+
         function generateStatement() {
             const name = document.getElementById('user-name').value || "Friend";
             const handle = document.getElementById('user-ig').value;
@@ -229,19 +233,37 @@
             document.getElementById('step-2').classList.remove('hidden');
             window.scrollTo(0, 0);
         }
+
+        // IMPROVED COPY LOGIC FOR WIX IFRAMES
         function copyText() {
             const text = document.getElementById('final-preview').innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = document.getElementById('copy-btn');
-                const btnText = document.getElementById('copy-text');
-                btn.style.backgroundColor = "#22c55e"; 
-                btnText.innerText = "Copied!";
-                setTimeout(() => {
-                    btn.style.backgroundColor = "#008dd5";
-                    btnText.innerText = "Copy Statement";
-                }, 2000);
-            });
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed"; 
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if(successful) {
+                    const btn = document.getElementById('copy-btn');
+                    const btnText = document.getElementById('copy-text');
+                    btn.style.backgroundColor = "#22c55e"; 
+                    btnText.innerText = "Copied!";
+                    setTimeout(() => {
+                        btn.style.backgroundColor = "#008dd5";
+                        btnText.innerText = "Copy Statement";
+                    }, 2000);
+                }
+            } catch (err) {
+                console.error('Copy failed', err);
+            }
+            document.body.removeChild(textArea);
         }
+
         function resetBuilder() {
             document.getElementById('step-2').classList.add('hidden');
             document.getElementById('step-1').classList.remove('hidden');

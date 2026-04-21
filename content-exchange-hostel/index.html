@@ -8,35 +8,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --brand-blue: #008dd5; }
-        
         body { 
             font-family: 'Inter', sans-serif; 
-            background: #008dd5;
+            background: #ffffff; /* Match Wix background */
             color: #1e293b; 
             margin: 0;
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             -webkit-font-smoothing: antialiased;
         }
-
-        .hw-card, .display-field, button, .edit-area { 
-            border-radius: 2px !important; 
-        }
-
-        /* Narrower, more cohesive card for the vertical stack */
         .hw-card { 
             background: #ffffff;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
             width: 100%;
             max-width: 500px; 
-            position: relative;
-            z-index: 10;
             display: flex;
             flex-direction: column;
         }
-
         .section-label {
             display: block;
             text-transform: uppercase;
@@ -46,7 +34,6 @@
             color: var(--brand-blue);
             margin-bottom: 8px;
         }
-
         .perk-banner {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
@@ -56,7 +43,6 @@
             font-size: 14px;
             color: #1e293b;
         }
-
         .edit-area {
             background: #f8fafc;
             border: 2px dashed #cbd5e1;
@@ -66,26 +52,22 @@
             color: #334155;
             min-height: 250px;
             outline: none;
+            border-radius: 2px;
         }
-
-        /* Promo code highlight style */
         .promo-highlight {
-            background-color: #fef9c3; /* Light yellow */
-            color: #854d0e; /* Darker yellow/brown text */
+            background-color: #fef9c3;
+            color: #854d0e;
             padding: 2px 4px;
             font-weight: 800;
             border-radius: 2px;
         }
-
         .hidden { display: none !important; }
+        button { border-radius: 2px !important; }
     </style>
 </head>
-<body class="p-4">
-
-    <a id="email-blank" href="mailto:" style="display:none"></a>
-
-    <main class="hw-card p-8">
-        <header class="mb-8 border-b border-slate-100 pb-4 text-center">
+<body>
+    <main class="hw-card p-4">
+        <header class="mb-8 border-b border-slate-100 pb-5 text-center">
             <h1 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">Review Partnership</h1>
             <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1">Verification Dashboard</p>
         </header>
@@ -98,21 +80,15 @@
                         <span>📱</span> View Social Post
                     </button>
                 </div>
-
                 <div>
                     <label class="section-label">2. Requested Reward</label>
                     <div class="perk-banner" id="display-perk">Fetching Perk...</div>
                 </div>
-
                 <div class="pt-4 border-t border-slate-100">
                     <label class="section-label">3. Your Decision</label>
                     <div class="space-y-3">
-                        <button onclick="handleDecision('approve')" class="w-full bg-[#22c55e] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg">
-                            Approve & Generate Code
-                        </button>
-                        <button onclick="handleDecision('decline')" class="w-full bg-slate-100 text-slate-500 py-4 font-bold uppercase tracking-widest text-[11px]">
-                            Decline Request
-                        </button>
+                        <button onclick="handleDecision('approve')" class="w-full bg-[#22c55e] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg">Approve & Generate Code</button>
+                        <button onclick="handleDecision('decline')" class="w-full bg-slate-100 text-slate-500 py-4 font-bold uppercase tracking-widest text-[11px]">Decline Request</button>
                     </div>
                 </div>
             </div>
@@ -123,47 +99,38 @@
                 <label class="section-label text-slate-400">Finalise Response Message ✏️</label>
                 <div id="final-preview" class="edit-area" contenteditable="true"></div>
             </div>
-
-            <div class="space-y-4">
-                <button id="copy-btn" onclick="copyAndFlash()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg flex items-center justify-center gap-2">
-                    <span id="copy-text">Copy Response Message</span>
-                </button>
-                
-                <div class="text-center">
-                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-3">Launch App & Paste:</p>
-                    <div class="grid grid-cols-3 gap-2">
-                        <button onclick="copyAndFlash(); window.open('https://wa.me/', '_blank')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
-                        <button onclick="copyAndFlash(); window.open('https://www.instagram.com/direct/inbox/', '_blank')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
-                        <button onclick="copyAndFlash(); document.getElementById('email-blank').click();" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Email</button>
-                    </div>
-                </div>
-            </div>
-            <button onclick="resetReview()" class="w-full text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4 text-center">← Change Decision</button>
+            <button id="copy-btn" onclick="copyAndFlash()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg">
+                <span id="copy-text">Copy Response Message</span>
+            </button>
+            <button onclick="resetReview()" class="w-full text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">← Change Decision</button>
         </div>
     </main>
 
     <script>
+        // THIS IS THE BRAIN: It grabs the data from the URL bar
         const params = new URLSearchParams(window.location.search);
         const contentUrl = params.get('content');
-        const perkName = params.get('perk') || "Partnership Perk";
+        const perkName = params.get('perk') || "Standard Partnership Perk";
 
+        // Update the display immediately
         document.getElementById('display-perk').innerText = perkName;
 
         function viewContent() {
-            if (contentUrl) window.open(contentUrl, '_blank');
-            else alert("Link missing from URL.");
+            if (contentUrl) {
+                window.open(contentUrl, '_blank');
+            } else {
+                alert("Wait! No Instagram link was provided in the request.");
+            }
         }
 
         function handleDecision(type) {
             const previewEl = document.getElementById('final-preview');
             if (type === 'approve') {
                 const code = "LAU-" + Math.random().toString(36).substring(2, 7).toUpperCase();
-                // Using innerHTML here to allow the span highlight
                 previewEl.innerHTML = `Hi! We loved the content you shared. <br><br>We've approved your request for: <strong>${perkName}</strong>.<br><br>Your reward code is: <span class="promo-highlight">${code}</span>. Please show this to our team next time you are at the hostel!<br><br>Thanks for being part of Laulima! 👋`;
             } else {
-                previewEl.innerHTML = `Hi! Thank you so much for reaching out.<br><br>Unfortunately, we aren't able to approve this request at this time, but we really appreciate the support! Feel free to try again with your next piece of content.<br><br>Good luck! 👋`;
+                previewEl.innerHTML = `Hi! Thank you so much for reaching out.<br><br>Unfortunately, we aren't able to approve this request at this time. We really appreciate the support! 👋`;
             }
-
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.remove('hidden');
         }
@@ -176,7 +143,6 @@
             textArea.select();
             document.execCommand('copy');
             document.body.removeChild(textArea);
-
             const btn = document.getElementById('copy-btn');
             const btnText = document.getElementById('copy-text');
             btn.style.backgroundColor = "#22c55e"; 

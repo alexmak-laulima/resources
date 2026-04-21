@@ -114,8 +114,6 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <a id="email-blank" href="mailto:" style="display:none"></a>
-
     <main class="hw-card p-6 md:p-10">
         <header class="mb-6 border-b border-slate-100 pb-4">
             <h1 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">Content Exchange</h1>
@@ -160,9 +158,9 @@
                     <div class="text-center">
                         <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Launch & Paste In:</p>
                         <div class="grid grid-cols-3 gap-2">
-                            <button onclick="copyAndFlash(); window.open('https://wa.me/', '_blank')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
-                            <button onclick="copyAndFlash(); window.open('https://www.instagram.com/direct/inbox/', '_blank')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
-                            <button onclick="copyAndFlash(); document.getElementById('email-blank').click();" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Email</button>
+                            <button onclick="launchApp('wa')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
+                            <button onclick="launchApp('ig')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
+                            <button onclick="launchApp('mail')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Email</button>
                         </div>
                     </div>
                 </div>
@@ -173,8 +171,6 @@
 
     <script>
         let selectedPerkValue = "";
-        
-        // --- UPDATED TO YOUR SPECIFIC WIX STUDIO URL ---
         const PUBLIC_REVIEW_URL = "https://alexandermak71.wixstudio.com/laulimaworld/blank-3"; 
 
         function selectPerk(el, val) {
@@ -198,6 +194,16 @@
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.remove('hidden');
             window.scrollTo(0, 0);
+        }
+
+        function launchApp(app) {
+            copyAndFlash();
+            const message = document.getElementById('final-preview').innerText;
+            const encodedMessage = encodeURIComponent(message);
+            
+            if (app === 'wa') window.open('https://wa.me/', '_blank');
+            if (app === 'ig') window.open('https://www.instagram.com/direct/inbox/', '_blank');
+            if (app === 'mail') window.location.href = "mailto:?body=" + encodedMessage;
         }
 
         function copyAndFlash() {

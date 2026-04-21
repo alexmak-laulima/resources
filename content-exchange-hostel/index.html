@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Laulima | Content Exchange</title>
+    <title>Laulima | Review Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -19,38 +19,20 @@
             align-items: center;
             justify-content: center;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
         }
 
-        .atmospheric-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            overflow: hidden; z-index: 0; pointer-events: none;
-        }
-        .blob {
-            position: absolute; border-radius: 50%; filter: blur(100px);
-            opacity: 0.2; animation: float 20s ease-in-out infinite;
-        }
-        .blob-1 { width: 400px; height: 400px; background: #6610f2; top: -50px; right: -50px; }
-        .blob-2 { width: 500px; height: 500px; background: #00ffc5; bottom: -100px; left: -100px; animation-delay: -5s; }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(30px, 30px) scale(1.1); }
-        }
-
-        .hw-card, .input-field, button, .perk-chip, .edit-area { 
+        .hw-card, .display-field, button, .edit-area { 
             border-radius: 2px !important; 
         }
 
+        /* Narrower, more cohesive card for the vertical stack */
         .hw-card { 
             background: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
             width: 100%;
-            max-width: 900px;
+            max-width: 500px; 
             position: relative;
             z-index: 10;
-            min-height: 500px; 
             display: flex;
             flex-direction: column;
         }
@@ -65,33 +47,15 @@
             margin-bottom: 8px;
         }
 
-        .input-field {
-            width: 100%;
-            background: #f1f5f9;
+        .perk-banner {
+            background: #f8fafc;
             border: 1px solid #e2e8f0;
-            padding: 12px 16px;
-            font-size: 16px !important;
+            border-left: 4px solid #6610f2;
+            padding: 14px 16px;
+            font-weight: 700;
+            font-size: 14px;
             color: #1e293b;
-            font-weight: 600;
         }
-        .input-field:focus { outline: none; border-color: var(--brand-blue); background: #ffffff; }
-
-        .perk-chip {
-            padding: 14px 20px;
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            font-size: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #475569;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .perk-chip.active { background: #6610f2; color: #ffffff; border-color: #6610f2; }
 
         .edit-area {
             background: #f8fafc;
@@ -104,99 +68,104 @@
             outline: none;
         }
 
+        /* Promo code highlight style */
+        .promo-highlight {
+            background-color: #fef9c3; /* Light yellow */
+            color: #854d0e; /* Darker yellow/brown text */
+            padding: 2px 4px;
+            font-weight: 800;
+            border-radius: 2px;
+        }
+
         .hidden { display: none !important; }
     </style>
 </head>
 <body class="p-4">
 
-    <div class="atmospheric-bg">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-    </div>
-
     <a id="email-blank" href="mailto:" style="display:none"></a>
 
-    <main class="hw-card p-6 md:p-10">
-        <header class="mb-6 border-b border-slate-100 pb-4">
-            <h1 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">Content Exchange</h1>
-            <p class="text-slate-500 text-sm">Create your partnership request.</p>
+    <main class="hw-card p-8">
+        <header class="mb-8 border-b border-slate-100 pb-4 text-center">
+            <h1 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">Review Partnership</h1>
+            <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1">Verification Dashboard</p>
         </header>
 
-        <div id="step-1" class="flex flex-col flex-grow">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-grow">
-                <div class="space-y-6">
-                    <div>
-                        <label class="section-label">Name</label>
-                        <input type="text" id="creator-name" placeholder="Your name for the sign-off" class="input-field">
-                    </div>
-                    <div>
-                        <label class="section-label">Instagram Link</label>
-                        <input type="url" id="creator-url" placeholder="Paste post or reel link..." class="input-field">
-                    </div>
-                </div>
-                <div>
-                    <label class="section-label">Request Perk</label>
-                    <div class="space-y-2">
-                        <div class="perk-chip" onclick="selectPerk(this, '1 Night Complimentary Stay')"><span>🛌</span> 1 Night Stay</div>
-                        <div class="perk-chip" onclick="selectPerk(this, '50% Discount Voucher')"><span>🎟️</span> 50% Discount</div>
-                    </div>
-                </div>
-            </div>
-            <button onclick="generateExchangeDraft()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] mt-6">Generate Message</button>
-        </div>
-
-        <div id="step-2" class="hidden flex-grow flex flex-col justify-between max-w-2xl mx-auto w-full">
+        <div id="step-1" class="space-y-8">
             <div class="space-y-6">
                 <div>
-                    <label class="section-label text-slate-400">Personalise ✏️</label>
-                    <div id="final-preview" class="edit-area" contenteditable="true"></div>
+                    <label class="section-label">1. Verify Content</label>
+                    <button onclick="viewContent()" class="w-full bg-slate-900 text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg flex items-center justify-center gap-2">
+                        <span>📱</span> View Social Post
+                    </button>
                 </div>
 
-                <div class="space-y-4">
-                    <button id="copy-btn" onclick="copyAndFlash()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg flex items-center justify-center gap-2">
-                        <span id="copy-text">Copy Message</span>
-                    </button>
-                    
-                    <div class="text-center">
-                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Launch & Paste In:</p>
-                        <div class="grid grid-cols-3 gap-2">
-                            <button onclick="copyAndFlash(); window.open('https://wa.me/', '_blank')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
-                            <button onclick="copyAndFlash(); window.open('https://www.instagram.com/direct/inbox/', '_blank')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
-                            <button onclick="copyAndFlash(); document.getElementById('email-blank').click();" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Email</button>
-                        </div>
+                <div>
+                    <label class="section-label">2. Requested Reward</label>
+                    <div class="perk-banner" id="display-perk">Fetching Perk...</div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100">
+                    <label class="section-label">3. Your Decision</label>
+                    <div class="space-y-3">
+                        <button onclick="handleDecision('approve')" class="w-full bg-[#22c55e] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg">
+                            Approve & Generate Code
+                        </button>
+                        <button onclick="handleDecision('decline')" class="w-full bg-slate-100 text-slate-500 py-4 font-bold uppercase tracking-widest text-[11px]">
+                            Decline Request
+                        </button>
                     </div>
                 </div>
             </div>
-            <button onclick="resetBuilder()" class="w-full text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4 pb-2 text-center">← Edit Details</button>
+        </div>
+
+        <div id="step-2" class="hidden space-y-6">
+            <div>
+                <label class="section-label text-slate-400">Finalise Response Message ✏️</label>
+                <div id="final-preview" class="edit-area" contenteditable="true"></div>
+            </div>
+
+            <div class="space-y-4">
+                <button id="copy-btn" onclick="copyAndFlash()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg flex items-center justify-center gap-2">
+                    <span id="copy-text">Copy Response Message</span>
+                </button>
+                
+                <div class="text-center">
+                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-3">Launch App & Paste:</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="copyAndFlash(); window.open('https://wa.me/', '_blank')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
+                        <button onclick="copyAndFlash(); window.open('https://www.instagram.com/direct/inbox/', '_blank')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
+                        <button onclick="copyAndFlash(); document.getElementById('email-blank').click();" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Email</button>
+                    </div>
+                </div>
+            </div>
+            <button onclick="resetReview()" class="w-full text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4 text-center">← Change Decision</button>
         </div>
     </main>
 
     <script>
-        let selectedPerkValue = "";
-        const PUBLIC_REVIEW_URL = "https://yoursite.com/review"; 
+        const params = new URLSearchParams(window.location.search);
+        const contentUrl = params.get('content');
+        const perkName = params.get('perk') || "Partnership Perk";
 
-        function selectPerk(el, val) {
-            document.querySelectorAll('.perk-chip').forEach(chip => chip.classList.remove('active'));
-            el.classList.add('active');
-            selectedPerkValue = val;
+        document.getElementById('display-perk').innerText = perkName;
+
+        function viewContent() {
+            if (contentUrl) window.open(contentUrl, '_blank');
+            else alert("Link missing from URL.");
         }
 
-        function generateExchangeDraft() {
-            const url = document.getElementById('creator-url').value;
-            const name = document.getElementById('creator-name').value || "[Your Name]";
-            if (!url || !selectedPerkValue) { alert("Fill in all fields."); return; }
+        function handleDecision(type) {
+            const previewEl = document.getElementById('final-preview');
+            if (type === 'approve') {
+                const code = "LAU-" + Math.random().toString(36).substring(2, 7).toUpperCase();
+                // Using innerHTML here to allow the span highlight
+                previewEl.innerHTML = `Hi! We loved the content you shared. <br><br>We've approved your request for: <strong>${perkName}</strong>.<br><br>Your reward code is: <span class="promo-highlight">${code}</span>. Please show this to our team next time you are at the hostel!<br><br>Thanks for being part of Laulima! 👋`;
+            } else {
+                previewEl.innerHTML = `Hi! Thank you so much for reaching out.<br><br>Unfortunately, we aren't able to approve this request at this time, but we really appreciate the support! Feel free to try again with your next piece of content.<br><br>Good luck! 👋`;
+            }
 
-            const reviewUrl = new URL(PUBLIC_REVIEW_URL);
-            reviewUrl.searchParams.set('mode', 'review');
-            reviewUrl.searchParams.set('content', url);
-            reviewUrl.searchParams.set('perk', selectedPerkValue);
-
-            const message = `Hi Team! 👋\n\nI've shared some content featuring your hostel!\n\nI'd love to exchange this partnership for: ${selectedPerkValue}.\n\nYou can view the post and approve/generate my reward code here:\n\n${reviewUrl.toString()}\n\nBest, ${name}`;
-            
-            document.getElementById('final-preview').innerText = message;
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.remove('hidden');
-            window.scrollTo(0, 0);
         }
 
         function copyAndFlash() {
@@ -214,11 +183,11 @@
             btnText.innerText = "Copied!";
             setTimeout(() => {
                 btn.style.backgroundColor = "#008dd5";
-                btnText.innerText = "Copy Message";
+                btnText.innerText = "Copy Response Message";
             }, 2000);
         }
 
-        function resetBuilder() {
+        function resetReview() {
             document.getElementById('step-2').classList.add('hidden');
             document.getElementById('step-1').classList.remove('hidden');
         }

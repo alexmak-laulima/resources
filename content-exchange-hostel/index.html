@@ -3,85 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Laulima | Review</title>
+    <title>Laulima | Review Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --brand-blue: #008dd5; }
-        body { font-family: 'Inter', sans-serif; background: transparent; padding: 10px; }
-        .perk-banner { background: #f8fafc; border-left: 4px solid #6610f2; padding: 14px; font-weight: 700; }
-        .edit-area { background: #f8fafc; border: 2px dashed #cbd5e1; padding: 15px; min-height: 200px; outline: none; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #ffffff; /* Match Wix background */
+            color: #1e293b; 
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hw-card { 
+            background: #ffffff;
+            width: 100%;
+            max-width: 500px; 
+            display: flex;
+            flex-direction: column;
+        }
+        .section-label {
+            display: block;
+            text-transform: uppercase;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: var(--brand-blue);
+            margin-bottom: 8px;
+        }
+        .perk-banner {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #6610f2;
+            padding: 14px 16px;
+            font-weight: 700;
+            font-size: 14px;
+            color: #1e293b;
+        }
+        .edit-area {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            padding: 16px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #334155;
+            min-height: 250px;
+            outline: none;
+            border-radius: 2px;
+        }
+        .promo-highlight {
+            background-color: #fef9c3;
+            color: #854d0e;
+            padding: 2px 4px;
+            font-weight: 800;
+            border-radius: 2px;
+        }
         .hidden { display: none !important; }
+        button { border-radius: 2px !important; }
     </style>
 </head>
 <body>
-    <div id="step-1" class="space-y-6">
-        <div>
-            <label class="block text-[10px] font-black text-[#008dd5] uppercase mb-2">1. Verify Content</label>
-            <a id="ig-link" href="#" target="_blank" class="w-full bg-black text-white py-4 font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-2">
-                <span>📱</span> View Social Post
-            </a>
-        </div>
-        <div>
-            <label class="block text-[10px] font-black text-[#008dd5] uppercase mb-2">2. Requested Reward</label>
-            <div class="perk-banner" id="display-perk">Loading Request...</div>
-        </div>
-        <div class="pt-4 border-t border-slate-100">
-            <label class="block text-[10px] font-black text-[#008dd5] uppercase mb-2">3. Your Decision</label>
-            <div class="grid grid-cols-1 gap-3">
-                <button onclick="handleDecision('approve')" class="bg-[#22c55e] text-white py-4 font-bold uppercase tracking-widest text-[11px]">Approve Request</button>
-                <button onclick="handleDecision('decline')" class="bg-slate-100 text-slate-500 py-4 font-bold uppercase tracking-widest text-[11px]">Decline</button>
+    <main class="hw-card p-4">
+        <header class="mb-8 border-b border-slate-100 pb-5 text-center">
+            <h1 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">Review Partnership</h1>
+            <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1">Verification Dashboard</p>
+        </header>
+
+        <div id="step-1" class="space-y-8">
+            <div class="space-y-6">
+                <div>
+                    <label class="section-label">1. Verify Content</label>
+                    <button onclick="viewContent()" class="w-full bg-slate-900 text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg flex items-center justify-center gap-2">
+                        <span>📱</span> View Social Post
+                    </button>
+                </div>
+                <div>
+                    <label class="section-label">2. Requested Reward</label>
+                    <div class="perk-banner" id="display-perk">Fetching Perk...</div>
+                </div>
+                <div class="pt-4 border-t border-slate-100">
+                    <label class="section-label">3. Your Decision</label>
+                    <div class="space-y-3">
+                        <button onclick="handleDecision('approve')" class="w-full bg-[#22c55e] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg">Approve & Generate Code</button>
+                        <button onclick="handleDecision('decline')" class="w-full bg-slate-100 text-slate-500 py-4 font-bold uppercase tracking-widest text-[11px]">Decline Request</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="step-2" class="hidden space-y-4">
-        <div id="final-preview" class="edit-area" contenteditable="true"></div>
-        <button id="copy-btn" onclick="copyText()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px]">Copy Response</button>
-        <button onclick="location.reload()" class="w-full text-[10px] font-bold text-slate-400 uppercase text-center">← Back</button>
-    </div>
+        <div id="step-2" class="hidden space-y-6">
+            <div>
+                <label class="section-label text-slate-400">Finalise Response Message ✏️</label>
+                <div id="final-preview" class="edit-area" contenteditable="true"></div>
+            </div>
+            <button id="copy-btn" onclick="copyAndFlash()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg">
+                <span id="copy-text">Copy Response Message</span>
+            </button>
+            <button onclick="resetReview()" class="w-full text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">← Change Decision</button>
+        </div>
+    </main>
 
     <script>
-        // THE WIX FIX: Try to get params from the parent window, fallback to current window
-        function getParam(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            let val = urlParams.get(name);
-            if (!val && window.parent !== window) {
-                const parentParams = new URLSearchParams(document.referrer.split('?')[1]);
-                val = parentParams.get(name);
-            }
-            return val;
-        }
+        // THIS IS THE BRAIN: It grabs the data from the URL bar
+        const params = new URLSearchParams(window.location.search);
+        const contentUrl = params.get('content');
+        const perkName = params.get('perk') || "Standard Partnership Perk";
 
-        const contentUrl = getParam('content');
-        const perkName = getParam('perk') || "Partnership Perk";
-
+        // Update the display immediately
         document.getElementById('display-perk').innerText = perkName;
-        if (contentUrl) { document.getElementById('ig-link').href = contentUrl; }
+
+        function viewContent() {
+            if (contentUrl) {
+                window.open(contentUrl, '_blank');
+            } else {
+                alert("Wait! No Instagram link was provided in the request.");
+            }
+        }
 
         function handleDecision(type) {
             const previewEl = document.getElementById('final-preview');
             if (type === 'approve') {
                 const code = "LAU-" + Math.random().toString(36).substring(2, 7).toUpperCase();
-                previewEl.innerText = `Hi! We loved the content. We've approved your request for: ${perkName}.\n\nYour code is: ${code}. See you soon!`;
+                previewEl.innerHTML = `Hi! We loved the content you shared. <br><br>We've approved your request for: <strong>${perkName}</strong>.<br><br>Your reward code is: <span class="promo-highlight">${code}</span>. Please show this to our team next time you are at the hostel!<br><br>Thanks for being part of Laulima! 👋`;
             } else {
-                previewEl.innerText = `Hi! Thanks for reaching out. We can't approve this request at this time, but we appreciate the support!`;
+                previewEl.innerHTML = `Hi! Thank you so much for reaching out.<br><br>Unfortunately, we aren't able to approve this request at this time. We really appreciate the support! 👋`;
             }
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.remove('hidden');
         }
 
-        function copyText() {
+        function copyAndFlash() {
             const text = document.getElementById('final-preview').innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = document.getElementById('copy-btn');
-                btn.innerText = "Copied!";
-                btn.classList.replace('bg-[#008dd5]', 'bg-green-500');
-                setTimeout(() => {
-                    btn.innerText = "Copy Response";
-                    btn.classList.replace('bg-green-500', 'bg-[#008dd5]');
-                }, 2000);
-            });
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            const btn = document.getElementById('copy-btn');
+            const btnText = document.getElementById('copy-text');
+            btn.style.backgroundColor = "#22c55e"; 
+            btnText.innerText = "Copied!";
+            setTimeout(() => {
+                btn.style.backgroundColor = "#008dd5";
+                btnText.innerText = "Copy Response Message";
+            }, 2000);
+        }
+
+        function resetReview() {
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-1').classList.remove('hidden');
         }
     </script>
 </body>

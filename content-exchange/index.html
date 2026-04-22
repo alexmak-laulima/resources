@@ -198,12 +198,9 @@
 
         function launchApp(app) {
             copyAndFlash();
-            const message = document.getElementById('final-preview').innerText;
-            const encodedMessage = encodeURIComponent(message);
-            
             if (app === 'wa') window.open('https://wa.me/', '_blank');
-            if (app === 'ig') window.open('https://www.instagram.com/direct/inbox/', '_blank');
-            if (app === 'mail') window.location.href = "mailto:?body=" + encodedMessage;
+            if (app === 'ig') window.open('https://www.instagram.com/', '_blank');
+            if (app === 'mail') window.location.href = "mailto:";
         }
 
         function copyAndFlash() {

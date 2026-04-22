@@ -113,7 +113,7 @@
             </div>
             <div>
                 <label class="section-label">2. Requested Reward</label>
-                <div class="perk-banner" id="display-perk">Loading...</div>
+                <div class="perk-banner" id="display-perk">No Perk Found</div>
             </div>
             <div class="pt-4 border-t border-slate-100">
                 <label class="section-label">3. Your Decision</label>
@@ -150,14 +150,24 @@
     </main>
 
     <script>
+        // CRITICAL FIX: Improved data pulling from Wix iFrames
         function getParam(name) {
+            // Check current URL first
             const urlParams = new URLSearchParams(window.location.search);
             let val = urlParams.get(name);
-            if (!val && window.parent !== window) {
+            
+            // If not found, check the "top" window URL (the Wix page address)
+            if (!val) {
                 try {
-                    const parentParams = new URLSearchParams(document.referrer.split('?')[1]);
-                    val = parentParams.get(name);
-                } catch(e) {}
+                    const topParams = new URLSearchParams(window.top.location.search);
+                    val = topParams.get(name);
+                } catch (e) {
+                    // Fallback to document.referrer if cross-origin policy blocks window.top
+                    try {
+                        const refParams = new URLSearchParams(document.referrer.split('?')[1]);
+                        val = refParams.get(name);
+                    } catch (e2) {}
+                }
             }
             return val;
         }
@@ -165,10 +175,15 @@
         const contentUrl = getParam('content');
         const perkName = getParam('perk') || "Partnership Perk";
 
-        document.getElementById('display-perk').innerText = perkName;
+        // Display results immediately
         if (contentUrl) { 
             document.getElementById('ig-link').href = contentUrl; 
+        } else {
+            document.getElementById('ig-link').innerText = "No Link Provided";
+            document.getElementById('ig-link').style.opacity = "0.5";
         }
+        
+        document.getElementById('display-perk').innerText = perkName;
 
         function handleDecision(type) {
             const previewEl = document.getElementById('final-preview');
@@ -185,7 +200,7 @@
         function launchApp(app) {
             copyAndFlash();
             if (app === 'wa') window.open('https://wa.me/', '_blank');
-            if (app === 'ig') window.open('https://www.instagram.com/direct/inbox/', '_blank');
+            if (app === 'ig') window.open('https://www.instagram.com/', '_blank');
             if (app === 'mail') window.location.href = "mailto:"; 
         }
 

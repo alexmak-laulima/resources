@@ -156,11 +156,16 @@
                     </button>
                     
                     <div class="text-center">
-                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Launch & Paste In:</p>
-                        <div class="grid grid-cols-3 gap-2">
-                            <button onclick="launchApp('wa')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
-                            <button onclick="launchApp('ig')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
-                            <button onclick="launchApp('mail')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Email</button>
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4">Launch & Paste In:</p>
+                        <div class="space-y-3">
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="launchApp('wa')" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
+                                <button onclick="launchApp('ig')" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="launchApp('mail')" class="flex-1 bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">Email</button>
+                                <span class="text-[7px] text-slate-400 font-bold uppercase tracking-widest whitespace-nowrap bg-slate-50 px-2 py-3 border border-slate-100 flex items-center">Desktop Only</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -201,7 +206,6 @@
             if (app === 'wa') window.open('https://wa.me/', '_blank');
             if (app === 'ig') window.open('https://www.instagram.com/', '_blank');
             if (app === 'mail') {
-                // MODIFIED: Opens blank mailto to avoid preloading/formatting issues on mobile
                 const mailLink = document.createElement('a');
                 mailLink.href = "mailto:";
                 mailLink.click();

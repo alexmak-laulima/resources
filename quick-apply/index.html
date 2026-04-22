@@ -110,7 +110,8 @@
             font-size: 14px;
             line-height: 1.6;
             color: #334155;
-            min-height: 250px;
+            height: 250px; /* FIXED HEIGHT */
+            overflow-y: auto; /* ENABLE SCROLL */
             outline: none;
         }
 
@@ -194,11 +195,16 @@
                     </button>
                     
                     <div class="text-center">
-                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Quick Launch App:</p>
-                        <div class="grid grid-cols-3 gap-2">
-                            <button onclick="window.open('https://wa.me/')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
-                            <button onclick="window.open('https://www.instagram.com/')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
-                            <button onclick="window.open('mailto:')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Email</button>
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4">Quick Launch App:</p>
+                        <div class="space-y-3">
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="window.open('https://wa.me/')" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
+                                <button onclick="window.open('https://www.instagram.com/')" class="bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="launchEmail()" class="flex-1 bg-white border border-slate-200 text-slate-600 py-3 font-bold uppercase tracking-widest text-[9px]">Email</button>
+                                <span class="text-[7px] text-slate-400 font-bold uppercase tracking-widest whitespace-nowrap bg-slate-50 px-2 py-3 border border-slate-100 flex items-center">Desktop Only</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -232,6 +238,13 @@
             window.scrollTo(0, 0);
         }
 
+        function launchEmail() {
+            copyText();
+            const mailLink = document.createElement('a');
+            mailLink.href = "mailto:";
+            mailLink.click();
+        }
+
         function copyText() {
             const text = document.getElementById('final-preview').innerText;
             const textArea = document.createElement("textarea");
@@ -252,7 +265,7 @@
                     btnText.innerText = "Copied!";
                     setTimeout(() => {
                         btn.style.backgroundColor = "#008dd5";
-                        btnText.innerText = "Copy Statement";
+                        btnText.innerText = "Copy Message";
                     }, 2000);
                 }
             } catch (err) {

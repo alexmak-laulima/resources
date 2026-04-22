@@ -16,6 +16,7 @@
             margin: 0;
             min-height: 100vh;
             display: flex;
+            flex-direction: column; /* Changed to column to stack logo above card */
             align-items: center;
             justify-content: center;
             -webkit-font-smoothing: antialiased;
@@ -42,15 +43,27 @@
             border-radius: 2px !important; 
         }
 
+        /* Container for logo and card to handle left alignment */
+        .page-container {
+            width: 95%;
+            max-width: 500px;
+            position: relative;
+            z-index: 10;
+            margin: 1rem;
+        }
+
+        .logo-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            transition: opacity 0.2s;
+        }
+        .logo-link:hover { opacity: 0.8; }
+
         .hw-card { 
             background: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-            width: 100%;
-            max-width: 500px;
-            position: relative;
-            z-index: 10;
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         .section-label {
@@ -88,6 +101,13 @@
             font-weight: 800;
         }
 
+        .guide-box {
+            background: #f1f5f9;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
         .hidden { display: none !important; }
     </style>
 </head>
@@ -98,71 +118,84 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <main class="hw-card">
-        <header class="mb-8 border-b border-slate-100 pb-5 text-center">
-            <h1 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">Review Request</h1>
-            <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1">Verification Dashboard</p>
-        </header>
+    <div class="page-container">
+        <a href="https://alexandermak71.wixstudio.com/laulimaworld" target="_blank" class="logo-link">
+            <img src="https://static.wixstatic.com/media/eeaf8e_977bbb07e5c04555b1c90fc15a6dbdbf~mv2.png" alt="Laulima Logo" class="h-10">
+        </a>
 
-        <div id="step-1" class="space-y-6">
-            <div>
-                <label class="section-label">1. Verify Content</label>
-                <a id="ig-link" href="#" target="_blank" class="w-full bg-black text-white py-4 font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-2">
-                    <span>📱</span> View Social Post
-                </a>
-            </div>
-            <div>
-                <label class="section-label">2. Requested Reward</label>
-                <div class="perk-banner" id="display-perk">No Perk Found</div>
-            </div>
-            <div class="pt-4 border-t border-slate-100">
-                <label class="section-label">3. Your Decision</label>
-                <div class="space-y-3">
-                    <button onclick="handleDecision('approve')" class="w-full bg-[#22c55e] text-white py-4 font-bold uppercase tracking-widest text-[11px]">Approve Request</button>
-                    <button onclick="handleDecision('decline')" class="w-full bg-slate-100 text-slate-500 py-4 font-bold uppercase tracking-widest text-[11px]">Decline</button>
+        <main class="hw-card">
+            <header class="mb-6 border-b border-slate-100 pb-5">
+                <h1 class="text-xl font-black text-slate-900 uppercase tracking-tighter">Review Dashboard</h1>
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Partnership Verification</p>
+            </header>
+
+            <div id="step-1">
+                <div class="guide-box">
+                    <label class="section-label">How it works</label>
+                    <ul class="text-[11px] space-y-2 text-slate-600 font-medium">
+                        <li class="flex gap-2"><span>1.</span> <strong>Verify:</strong> Click the button below to check the social content.</li>
+                        <li class="flex gap-2"><span>2.</span> <strong>Decide:</strong> If it meets your standards, click Approve.</li>
+                        <li class="flex gap-2"><span>3.</span> <strong>Customise:</strong> You can edit the promo code or add redemption instructions in the next step.</li>
+                    </ul>
                 </div>
-            </div>
-        </div>
 
-        <div id="step-2" class="hidden space-y-6">
-            <div>
-                <label class="section-label text-slate-400">Finalise Response ✏️</label>
-                <div id="final-preview" class="edit-area" contenteditable="true"></div>
-            </div>
-
-            <div class="space-y-4">
-                <button id="copy-btn" onclick="copyAndFlash()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg">
-                    <span id="copy-text">Copy Response Message</span>
-                </button>
-                
-                <div class="text-center">
-                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Send Message via:</p>
-                    <div class="grid grid-cols-3 gap-2">
-                        <button onclick="launchApp('wa')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
-                        <button onclick="launchApp('ig')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
-                        <button onclick="launchApp('mail')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Email</button>
+                <div class="space-y-6">
+                    <div>
+                        <label class="section-label">1. Verify Content</label>
+                        <a id="ig-link" href="#" target="_blank" class="w-full bg-black text-white py-4 font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-2">
+                            <span>📱</span> View Social Post
+                        </a>
+                    </div>
+                    <div>
+                        <label class="section-label">2. Requested Reward</label>
+                        <div class="perk-banner" id="display-perk">No Perk Found</div>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100">
+                        <label class="section-label">3. Your Decision</label>
+                        <div class="space-y-3">
+                            <button onclick="handleDecision('approve')" class="w-full bg-[#22c55e] text-white py-4 font-bold uppercase tracking-widest text-[11px]">Approve Request</button>
+                            <button onclick="handleDecision('decline')" class="w-full bg-slate-100 text-slate-500 py-4 font-bold uppercase tracking-widest text-[11px]">Decline</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <button onclick="location.reload()" class="w-full text-[10px] font-bold text-slate-400 uppercase text-center">← Back to Decision</button>
-        </div>
-    </main>
+            <div id="step-2" class="hidden space-y-6">
+                <div>
+                    <label class="section-label text-slate-400">Finalise Response ✏️</label>
+                    <p class="text-[10px] text-slate-400 mb-2 font-bold italic">Tip: You can edit the message or instructions directly below.</p>
+                    <div id="final-preview" class="edit-area" contenteditable="true"></div>
+                </div>
+
+                <div class="space-y-4">
+                    <button id="copy-btn" onclick="copyAndFlash()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg">
+                        <span id="copy-text">Copy Response Message</span>
+                    </button>
+                    
+                    <div class="text-center">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Send Message via:</p>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="launchApp('wa')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">WhatsApp</button>
+                            <button onclick="launchApp('ig')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Instagram</button>
+                            <button onclick="launchApp('mail')" class="bg-white border border-slate-200 text-slate-600 py-2 font-bold uppercase tracking-widest text-[9px]">Email</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="location.reload()" class="w-full text-[10px] font-bold text-slate-400 uppercase text-center">← Back to Decision</button>
+            </div>
+        </main>
+    </div>
 
     <script>
-        // CRITICAL FIX: Improved data pulling from Wix iFrames
         function getParam(name) {
-            // Check current URL first
             const urlParams = new URLSearchParams(window.location.search);
             let val = urlParams.get(name);
-            
-            // If not found, check the "top" window URL (the Wix page address)
             if (!val) {
                 try {
                     const topParams = new URLSearchParams(window.top.location.search);
                     val = topParams.get(name);
                 } catch (e) {
-                    // Fallback to document.referrer if cross-origin policy blocks window.top
                     try {
                         const refParams = new URLSearchParams(document.referrer.split('?')[1]);
                         val = refParams.get(name);
@@ -175,7 +208,6 @@
         const contentUrl = getParam('content');
         const perkName = getParam('perk') || "Partnership Perk";
 
-        // Display results immediately
         if (contentUrl) { 
             document.getElementById('ig-link').href = contentUrl; 
         } else {
@@ -189,7 +221,7 @@
             const previewEl = document.getElementById('final-preview');
             if (type === 'approve') {
                 const code = "LAU-" + Math.random().toString(36).substring(2, 7).toUpperCase();
-                previewEl.innerHTML = `Hi! 👋<br><br>Thank you so much for sharing your content featuring us! We loved the post.<br><br>We are happy to approve your request for: <strong>${perkName}</strong>.<br><br>Your unique reward code is: <span class="promo-highlight">${code}</span>. Please present this message to our front desk team during your visit to redeem your perk.<br><br>We look forward to seeing you!`;
+                previewEl.innerHTML = `Hi! 👋<br><br>Thank you so much for sharing your content featuring us! We loved the post.<br><br>We are happy to approve your request for: <strong>${perkName}</strong>.<br><br>Your unique reward code is: <span class="promo-highlight">${code}</span>. Use this code on our booking platform to redeem your perk.<br><br>We look forward to seeing you!`;
             } else {
                 previewEl.innerHTML = `Hi! 👋<br><br>Thank you so much for reaching out and for sharing your content featuring our hostel.<br><br>While we really appreciate the support and the post, we aren't able to approve this specific partnership request at this time.<br><br>We hope you had a great stay and wish you the best on your travels!`;
             }

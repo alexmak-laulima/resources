@@ -50,7 +50,8 @@
             max-width: 900px;
             position: relative;
             z-index: 10;
-            min-height: 500px; 
+            /* FIXED HEIGHT TO PREVENT JUMPING */
+            height: 650px; 
             display: flex;
             flex-direction: column;
         }
@@ -100,7 +101,8 @@
             font-size: 14px;
             line-height: 1.6;
             color: #334155;
-            min-height: 250px;
+            height: 200px; /* Fixed height for text area */
+            overflow-y: auto;
             outline: none;
         }
 
@@ -120,8 +122,8 @@
             <p class="text-slate-500 text-sm">Create your partnership request.</p>
         </header>
 
-        <div id="step-1" class="flex flex-col flex-grow">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-grow">
+        <div id="step-1" class="flex flex-col h-full justify-between">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="space-y-6">
                     <div>
                         <label class="section-label">Name</label>
@@ -143,7 +145,7 @@
             <button onclick="generateExchangeDraft()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] mt-6">Generate Message</button>
         </div>
 
-        <div id="step-2" class="hidden flex-grow flex flex-col justify-between max-w-2xl mx-auto w-full">
+        <div id="step-2" class="hidden flex flex-col h-full justify-between max-w-2xl mx-auto w-full">
             <div class="space-y-6">
                 <div>
                     <label class="section-label text-slate-400">Personalise ✏️</label>
@@ -198,7 +200,6 @@
             document.getElementById('final-preview').innerText = message;
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.remove('hidden');
-            window.scrollTo(0, 0);
         }
 
         function launchApp(app) {

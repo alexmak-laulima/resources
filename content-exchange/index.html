@@ -171,7 +171,6 @@
 
     <script>
         let selectedPerkValue = "";
-        // AMENDED: Now points to the correct Host Approval Dashboard link
         const PUBLIC_REVIEW_URL = "https://alexmak-laulima.github.io/resources/content-exchange-hostel/index.html"; 
 
         function selectPerk(el, val) {
@@ -201,7 +200,12 @@
             copyAndFlash();
             if (app === 'wa') window.open('https://wa.me/', '_blank');
             if (app === 'ig') window.open('https://www.instagram.com/', '_blank');
-            if (app === 'mail') window.location.href = "mailto:";
+            if (app === 'mail') {
+                // MODIFIED: Opens blank mailto to avoid preloading/formatting issues on mobile
+                const mailLink = document.createElement('a');
+                mailLink.href = "mailto:";
+                mailLink.click();
+            }
         }
 
         function copyAndFlash() {

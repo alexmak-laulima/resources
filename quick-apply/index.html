@@ -145,7 +145,7 @@
                         <input type="text" id="user-name" placeholder="John Doe" class="input-field">
                     </div>
                     <div>
-                        <label class="section-label">Instagram Handle</label>
+                        <label class="section-label">Instagram Handle (optional)</label>
                         <input type="text" id="user-ig" placeholder="@yourhandle" class="input-field">
                     </div>
                     <div>
@@ -179,7 +179,7 @@
                 </div>
             </div>
             <button onclick="generateStatement()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] shadow-lg hover:brightness-110 transition-all mt-6">
-                Write My Message
+                Create Message
             </button>
         </div>
 
@@ -230,8 +230,8 @@
             const name = document.getElementById('user-name').value || "Friend";
             const handle = document.getElementById('user-ig').value;
             const dates = document.getElementById('user-dates').value || "the near future";
-            let skillsPart = selectedTags.length > 0 ? `I have experience with ${selectedTags.join(", ")}.` : "I'm a hard-working individual ready to help out wherever needed.";
-            let igPart = handle ? `You can check out my profile here: ${handle}` : "";
+            let skillsPart = selectedTags.length > 0 ? `I have experience with ${selectedTags.join(", ")}.` : "I'm hard-working and ready to help out wherever needed.";
+            let igPart = handle ? `You can check out my Instagram profile here: ${handle}` : "";
             const message = `Hi Team! 👋\n\nMy name is ${name} and I'm reaching out because I'd love to volunteer with you! \n\nI'm looking for a position around ${dates}. ${skillsPart} I'm easy-going, love the hostel vibe, and I'm ready to get stuck in. \n\n${igPart}\n\nDo you have any availability for volunteers during those dates? \n\nBest, ${name}`;
             document.getElementById('final-preview').innerText = message;
             document.getElementById('step-1').classList.add('hidden');

@@ -195,8 +195,7 @@
             reviewUrl.searchParams.set('content', url);
             reviewUrl.searchParams.set('perk', selectedPerkValue);
 
-            const message = `Hi Team! 👋\n\nI’ve shared some content featuring your hostel!\n\nBy adding you as a collaborator, this post will appear directly on your profile, allowing you to reach my audience and providing you with high-quality content. I'd love to exchange this partnership for: ${selectedPerkValue}.\n\nHow to get your code:
-You can view the post and approve the exchange via the link below. Once you hit "Approve," the system will instantly generate a unique promo code for me to use on your direct booking engine. Alternatively, you can manually generate a custom code for me to use if you prefer.\n\n${reviewUrl.toString()}\n\nBest, ${name}`;
+            const message = `Hi Team! 👋\n\nI’ve just shared some content featuring your hostel and, if you're interested, I’d love to add you as a collaborator on the post. By accepting, the content will appear directly on your profile, providing you with high-quality content and reach to my audience. In exchange for this partnership, I’d love to request: ${selectedPerkValue}.\n\nTo view the post and approve the exchange, please follow the link below. Once you hit "Approve," the system will instantly generate a unique promo code for me to use directly on your booking engine, though you can also manually generate a custom code for me to use if you prefer. View post & approve here:\n\n${reviewUrl.toString()}\n\nBest, ${name}`;
             
             document.getElementById('final-preview').innerText = message;
             document.getElementById('step-1').classList.add('hidden');

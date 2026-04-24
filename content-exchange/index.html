@@ -118,8 +118,8 @@
 
     <main class="hw-card p-6 md:p-10">
         <header class="mb-6 border-b border-slate-100 pb-4">
-            <h1 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">Content Exchange</h1>
-            <p class="text-slate-500 text-sm">Create your partnership request.</p>
+            <h1 class="text-2xl font-black text-slate-900 tracking-tighter">Content Exchange</h1>
+            <p class="text-slate-500 text-sm">Request a reward for your content.</p>
         </header>
 
         <div id="step-1" class="flex flex-col h-full justify-between">
@@ -127,7 +127,7 @@
                 <div class="space-y-6">
                     <div>
                         <label class="section-label">Name</label>
-                        <input type="text" id="creator-name" placeholder="Your name for the sign-off" class="input-field">
+                        <input type="text" id="creator-name" placeholder="John Doe" class="input-field">
                     </div>
                     <div>
                         <label class="section-label">Instagram Link</label>
@@ -137,18 +137,18 @@
                 <div>
                     <label class="section-label">Request Perk</label>
                     <div class="space-y-2">
-                        <div class="perk-chip" onclick="selectPerk(this, '1 Night Complimentary Stay')"><span>🛌</span> 1 Night Stay</div>
+                        <div class="perk-chip" onclick="selectPerk(this, '1 Night Free Stay')"><span>🛌</span> 1 Night Free Stay</div>
                         <div class="perk-chip" onclick="selectPerk(this, '50% Discount Voucher')"><span>🎟️</span> 50% Discount</div>
                     </div>
                 </div>
             </div>
-            <button onclick="generateExchangeDraft()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] mt-6">Generate Message</button>
+            <button onclick="generateExchangeDraft()" class="w-full bg-[#008dd5] text-white py-4 font-bold uppercase tracking-widest text-[11px] mt-6">Create Message</button>
         </div>
 
         <div id="step-2" class="hidden flex flex-col h-full justify-between max-w-2xl mx-auto w-full">
             <div class="space-y-6">
                 <div>
-                    <label class="section-label text-slate-400">Personalise ✏️</label>
+                    <label class="section-label text-slate-400">Personalise Your Message ✏️</label>
                     <div id="final-preview" class="edit-area" contenteditable="true"></div>
                 </div>
 
@@ -195,7 +195,7 @@
             reviewUrl.searchParams.set('content', url);
             reviewUrl.searchParams.set('perk', selectedPerkValue);
 
-            const message = `Hi Team! 👋\n\nI've shared some content featuring your hostel!\n\nI'd love to exchange this partnership for: ${selectedPerkValue}.\n\nYou can view the post and approve/generate my reward code here:\n\n${reviewUrl.toString()}\n\nBest, ${name}`;
+            const message = `Hi Team! 👋\n\nI posted some content featuring your hostel!\n\nI'd love to add you as a colloaborator and exchange this partnership for: ${selectedPerkValue}.\n\nYou can view the post and approve/generate a reward code here:\n\n${reviewUrl.toString()}\n\nBest, ${name}`;
             
             document.getElementById('final-preview').innerText = message;
             document.getElementById('step-1').classList.add('hidden');

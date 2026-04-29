@@ -2,255 +2,159 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How Much You Save Every Month Volunteering</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>How Much You Save Every Month Volunteering | Laulima</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
+        :root { --brand-blue: #008dd5; }
+        
         body {
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            height: auto; 
-            margin: 0; 
-            background-color: transparent !important; 
-            overflow: hidden; /* Added for cooling solution */
-        }
-        
-        /* Container for cooling solution height calculation */
-        #widget-container {
-            width: 100%;
-            height: auto;
-            overflow: hidden;
-        }
-
-        .text-xxs {
-            font-size: 0.625rem;
-            line-height: 1rem;
-        }
-
-        .custom-max-w {
-            max-width: 1026px;
-        }
-
-        .gradient-bg {
+            font-family: 'Brown', 'Inter', sans-serif;
+            /* Page Background: Purple to Blue Gradient */
             background: linear-gradient(135deg, #6610f2 0%, #008dd5 100%);
+            margin: 0; 
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
         }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+        .hw-card { 
+            /* Widget: Solid White Card */
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 2px !important;
+            width: 100%;
+            max-width: 1100px;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /* Dimensions set to prevent jumping */
+            min-height: 650px; 
+            color: #1e293b;
         }
-        
-        .result-card-bg {
-            background: rgba(255, 255, 255, 0.15); 
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+
+        .inner-panel {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 2px !important;
+        }
+
+        .section-label {
+            display: block;
+            text-transform: uppercase;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: var(--brand-blue);
         }
 
         .slider-track {
-            background: linear-gradient(to right, #00ffcc 0%, #00ffcc 25%, #e5e7eb 25%, #e5e7eb 100%);
-        }
-        
-        .number-highlight {
-            background: linear-gradient(135deg, #00ffcc, #33ffdd); 
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            background: #e2e8f0;
+            height: 6px;
+            border-radius: 2px;
+            appearance: none;
         }
 
-        .metric-pullout {
-            color: #00ffcc;
+        .custom-slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 36px; 
+            height: 36px; 
+            cursor: grab;
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="70">🛩️</text></svg>'); 
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
-        
+
+        .experiences-list {
+            /* Consistent height for column content */
+            min-height: 160px;
+        }
+
         .experiences-list li {
             position: relative;
-            padding-left: 1rem;
+            padding-left: 1.25rem;
+            font-size: 0.85rem;
+            color: #475569;
+            font-weight: 500;
             line-height: 1.4;
         }
 
         .experiences-list li .check-icon {
             position: absolute;
             left: 0;
-            top: 0.1rem;
-            color: #00ffcc; 
+            color: #22c55e;
         }
         
-        .list-height-fix {
-            min-height: 120px; 
-        }
-
-        .custom-slider-thumb::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 40px; 
-            height: 40px; 
-            background: transparent; 
-            border-radius: 50%;
-            cursor: grab;
-            border: none; 
-            box-shadow: none; 
-            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="80">🛩️</text></svg>'); 
-            background-size: 85%;
-            background-repeat: no-repeat;
-            background-position: center;
-            margin-top: -13px; 
-        }
-
-        .custom-slider-thumb::-moz-range-thumb {
-            width: 40px; 
-            height: 40px; 
-            background: transparent; 
-            border-radius: 50%;
-            cursor: grab;
-            border: none; 
-            box-shadow: none; 
-            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="80">👩‍🚀</text></svg>'); 
-            background-size: 85%;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-        
-        .custom-slider-thumb {
-            accent-color: transparent; 
-        }
+        .text-xxs { font-size: 9px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em; }
     </style>
 </head>
-<body class="bg-transparent"> 
-    <div id="widget-container" class="py-6 px-4 gradient-bg"> 
-        <div class="custom-max-w mx-auto">
-            <div class="text-center mb-6">
-                <p class="text-2xl font-bold text-white max-w-2xl mx-auto">
-                    How Much You Save Every Month Volunteering
-                </p>
-                <p class="text-sm text-white/80 mt-2">
-                    Calculate your cash savings from your first exchange in three popular volunteering continents.
-                </p>
+<body>
+    <main class="hw-card p-6 md:p-8">
+        <header class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-6 border-b border-slate-100 pb-6">
+            <div class="text-left">
+                <h1 class="text-2xl font-black text-slate-900 tracking-tighter">How Much You Save Every Month Volunteering</h1>
+                <p class="text-slate-500 text-sm mt-1">Calculate your savings from your first exchange in three popular volunteering continents.</p>
             </div>
-
-            <div class="glass-effect rounded-2xl p-6 mb-6 shadow-2xl"> 
-                <div class="text-center">
-                    <label class="block text-xl font-semibold text-white mb-4">
-                        I plan to travel for <span id="monthsDisplay" class="number-highlight text-2xl font-bold">3</span> months
-                    </label>
-                    
-                    <div class="max-w-md mx-auto">
-                        <input 
-                            type="range" 
-                            id="monthsSlider" 
-                            min="1" 
-                            max="12" 
-                            value="3" 
-                            class="w-full h-3 rounded-lg appearance-none cursor-pointer slider-track custom-slider-thumb"
-                        >
-                        <div class="flex justify-between text-sm text-white/80 mt-2"> 
+            
+            <div class="inner-panel px-6 py-4 w-full lg:max-w-sm text-center lg:text-left">
+                <label class="block text-sm font-bold text-slate-900 mb-2">
+                    I plan to travel for <span id="monthsDisplay" class="text-brand-blue text-2xl font-black px-1">3</span> months
+                </label>
+                <div class="flex items-center gap-4">
+                    <div class="flex-1">
+                        <input type="range" id="monthsSlider" min="1" max="12" value="3" class="w-full appearance-none slider-track custom-slider-thumb">
+                        <div class="flex justify-between text-[9px] font-black text-slate-400 uppercase tracking-widest mt-2"> 
                             <span>1 month</span>
                             <span>12 months</span>
                         </div>
-                        <p class="text-xs text-white/70 mt-2 italic">
-                            (Drag the 🛩️ to toggle months)
-                        </p>
                     </div>
                 </div>
+                <p class="text-[9px] text-slate-400 mt-2 italic font-bold text-center">(Drag the 🛩️ to toggle months)</p>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="inner-panel p-5 text-center">
+                <div class="text-2xl mb-2">🏰</div>
+                <h3 class="section-label mb-1">Europe</h3>
+                <div class="text-3xl font-black text-slate-900 mb-5">£<span id="cashSavedEU">2,880</span></div>
+                <div class="p-4 bg-white border border-slate-100 text-left rounded-[2px]">
+                    <p class="text-xxs text-slate-400 mb-3 font-bold">What experiences this can pay for:</p>
+                    <ul id="experiencesEU" class="experiences-list space-y-2"></ul>
+                </div>
+                <p class="text-[9px] text-slate-400 mt-4 font-bold uppercase tracking-tight">Based on £25/night stay + £7/day breakfast included.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-4 mb-4">
-                
-                <!-- EUROPE CARD -->
-                <div class="result-card-bg rounded-xl p-4 text-center shadow-xl"> 
-                    <div class="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <span class="text-2xl">🏰</span> 
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-4">Europe</h3>
-                    
-                    <div class="p-3 bg-white/10 rounded-lg mb-2">
-                        <p class="text-xs text-white/80">Total Cash Saved (for <span id="monthsSavedEU">3</span> months)</p>
-                        <div class="text-2xl font-bold metric-pullout">
-                            £<span id="cashSavedEU">2,880</span>
-                        </div>
-                    </div>
-
-                    <div class="p-3 bg-white/10 rounded-lg text-left">
-                        <p class="text-xs text-white/80 mb-2 font-bold">What experiences this can pay for:</p>
-                        <ul id="experiencesEU" class="text-sm text-white/90 space-y-1 experiences-list list-height-fix"></ul>
-                    </div>
-                    
-                    <p class="text-xxs text-white/60 mt-4">
-                        Based on £25/night stay + £7/day breakfast included.
-                    </p>
+            <div class="inner-panel p-5 text-center">
+                <div class="text-2xl mb-2">⛰️</div>
+                <h3 class="section-label mb-1">South America</h3>
+                <div class="text-3xl font-black text-slate-900 mb-5">£<span id="cashSavedSA">1,620</span></div>
+                <div class="p-4 bg-white border border-slate-100 text-left rounded-[2px]">
+                    <p class="text-xxs text-slate-400 mb-3 font-bold">What experiences this can pay for:</p>
+                    <ul id="experiencesSA" class="experiences-list space-y-2"></ul>
                 </div>
+                <p class="text-[9px] text-slate-400 mt-4 font-bold uppercase tracking-tight">Based on £12/night stay + £6/day breakfast included.</p>
+            </div>
 
-                <!-- SOUTH AMERICA CARD -->
-                <div class="result-card-bg rounded-xl p-4 text-center shadow-xl"> 
-                    <div class="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <span class="text-2xl">⛰️</span> 
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-4">South America</h3>
-                    
-                    <div class="p-3 bg-white/10 rounded-lg mb-2">
-                        <p class="text-xs text-white/80">Total Cash Saved (for <span id="monthsSavedSA">3</span> months)</p>
-                        <div class="text-2xl font-bold metric-pullout"> 
-                        £<span id="cashSavedSA">1,620</span>
-                        </div>
-                    </div>
-
-                    <div class="p-3 bg-white/10 rounded-lg text-left">
-                        <p class="text-xs text-white/80 mb-2 font-bold">What experiences this can pay for:</p>
-                        <ul id="experiencesSA" class="text-sm text-white/90 space-y-1 experiences-list list-height-fix"></ul>
-                    </div>
-                    
-                    <p class="text-xxs text-white/60 mt-4">
-                        Based on £12/night stay + £6/day breakfast included.
-                    </p>
+            <div class="inner-panel p-5 text-center">
+                <div class="text-2xl mb-2">🏯</div>
+                <h3 class="section-label mb-1">South East Asia</h3>
+                <div class="text-3xl font-black text-slate-900 mb-5">£<span id="cashSavedSEA">1,440</span></div>
+                <div class="p-4 bg-white border border-slate-100 text-left rounded-[2px]">
+                    <p class="text-xxs text-slate-400 mb-3 font-bold">What experiences this can pay for:</p>
+                    <ul id="experiencesSEA" class="experiences-list space-y-2"></ul>
                 </div>
-
-                <!-- SOUTH EAST ASIA CARD -->
-                <div class="result-card-bg rounded-xl p-4 text-center shadow-xl"> 
-                    <div class="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <span class="text-2xl">🏯</span> 
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-4">South East Asia</h3>
-                    
-                    <div class="p-3 bg-white/10 rounded-lg mb-2">
-                        <p class="text-xs text-white/80">Total Cash Saved (for <span id="monthsSavedSEA">3</span> months)</p>
-                        <div class="text-2xl font-bold metric-pullout">
-                            £<span id="cashSavedSEA">1,440</span>
-                        </div>
-                    </div>
-
-                    <div class="p-3 bg-white/10 rounded-lg text-left">
-                        <p class="text-xs text-white/80 mb-2 font-bold">What experiences this can pay for:</p>
-                        <ul id="experiencesSEA" class="text-sm text-white/90 space-y-1 experiences-list list-height-fix"></ul>
-                    </div>
-                    
-                    <p class="text-xxs text-white/60 mt-4">
-                        Based on £11/night stay + £5/day breakfast included.
-                    </p>
-                </div>
+                <p class="text-[9px] text-slate-400 mt-4 font-bold uppercase tracking-tight">Based on £11/night stay + £5/day breakfast included.</p>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
-        // --- COOLING SOLUTION LOGIC ---
-        function sendHeight() {
-            const height = document.getElementById('widget-container').offsetHeight;
-            window.parent.postMessage({ height: height }, '*');
-        }
-
-        window.addEventListener('load', sendHeight);
-        window.addEventListener('resize', sendHeight);
-        
-        // Observer to catch dynamic height changes when lists update
-        const observer = new MutationObserver(sendHeight);
-        observer.observe(document.getElementById('widget-container'), { 
-            childList: true, 
-            subtree: true, 
-            attributes: true 
-        });
-
         const slider = document.getElementById('monthsSlider');
         const monthsDisplay = document.getElementById('monthsDisplay');
 
@@ -292,7 +196,6 @@
                 [{n:"Underground River", l:"Philippines", c:45}, {n:"Bali Surf School", l:"Indonesia", c:90}, {n:"Killing Fields Museum", l:"Cambodia", c:15}],
                 [{n:"Inle Lake Boat Tour", l:"Myanmar", c:25}, {n:"Muay Thai (1 Week)", l:"Thailand", c:110}, {n:"Canyoneering", l:"Philippines", c:35}],
                 [{n:"Sapa Valley Trek", l:"Vietnam", c:55}, {n:"Pai Canyon Sunset", l:"Thailand", c:0}, {n:"Tegallalang Swing", l:"Indonesia", c:15}],
-                [{n:"Seafood Dinner", l:"Myanmar", c:12}, {n:"Chocolate Hills", l:"Philippines", c:30}, {n:"Tea Plantation", l:"Malaysia", c:10}],
                 [{n:"Street Art & Food", l:"Malaysia", c:25}, {n:"Gili Snorkeling", l:"Indonesia", c:15}, {n:"Ayutthaya Bike Tour", l:"Thailand", c:10}],
                 [{n:"Scuba Certification", l:"Thailand", c:350}, {n:"Phong Nha Cave", l:"Vietnam", c:30}, {n:"Ngapali Dinner", l:"Myanmar", c:12}],
                 [{n:"Gibbon Experience", l:"Laos", c:280}, {n:"Komodo Boat Tour", l:"Indonesia", c:150}, {n:"Batu Caves", l:"Malaysia", c:0}]
@@ -300,37 +203,22 @@
         };
 
         const regions = {
-            EU: { cashEl: document.getElementById('cashSavedEU'), monthLabel: document.getElementById('monthsSavedEU'), listEl: document.getElementById('experiencesEU'), daily: 32 },
-            SA: { cashEl: document.getElementById('cashSavedSA'), monthLabel: document.getElementById('monthsSavedSA'), listEl: document.getElementById('experiencesSA'), daily: 18 },
-            SEA: { cashEl: document.getElementById('cashSavedSEA'), monthLabel: document.getElementById('monthsSavedSEA'), listEl: document.getElementById('experiencesSEA'), daily: 16 }
+            EU: { cashEl: document.getElementById('cashSavedEU'), listEl: document.getElementById('experiencesEU'), daily: 32 },
+            SA: { cashEl: document.getElementById('cashSavedSA'), listEl: document.getElementById('experiencesSA'), daily: 18 },
+            SEA: { cashEl: document.getElementById('cashSavedSEA'), listEl: document.getElementById('experiencesSEA'), daily: 16 }
         };
 
         function updateResults() {
             const months = parseInt(slider.value);
             monthsDisplay.textContent = months;
             const percentage = ((months - 1) / 11) * 100;
-            slider.style.background = `linear-gradient(to right, #00ffcc 0%, #00ffcc ${percentage}%, #e5e7eb ${percentage}%, #e5e7eb 100%)`;
+            slider.style.background = `linear-gradient(to right, var(--brand-blue) 0%, var(--brand-blue) ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`;
 
-            // EU
-            const totalEU = months * 30 * regions.EU.daily;
-            regions.EU.cashEl.textContent = totalEU.toLocaleString();
-            regions.EU.monthLabel.textContent = months;
-            renderList(document.getElementById('experiencesEU'), iternaries.EU[months-1], totalEU);
-
-            // SA
-            const totalSA = months * 30 * regions.SA.daily;
-            regions.SA.cashEl.textContent = totalSA.toLocaleString();
-            regions.SA.monthLabel.textContent = months;
-            renderList(document.getElementById('experiencesSA'), iternaries.SA[months-1], totalSA);
-
-            // SEA
-            const totalSEA = months * 30 * regions.SEA.daily;
-            document.getElementById('cashSavedSEA').textContent = totalSEA.toLocaleString();
-            document.getElementById('monthsSavedSEA').textContent = months;
-            renderList(document.getElementById('experiencesSEA'), iternaries.SEA[months-1], totalSEA);
-            
-            // Explicit call to send height after data update
-            sendHeight();
+            Object.keys(regions).forEach(key => {
+                const total = months * 30 * regions[key].daily;
+                regions[key].cashEl.textContent = total.toLocaleString();
+                renderList(regions[key].listEl, iternaries[key][months-1], total);
+            });
         }
 
         function renderList(el, items, totalCash) {
@@ -341,8 +229,8 @@
                 cost += item.c;
             });
             const leftover = totalCash - cost;
-            html += `<hr class="border-white/20 my-2">`;
-            html += `<li class="font-bold text-white/90">Remaining Cash: £${leftover.toLocaleString()}</li>`;
+            html += `<hr class="border-slate-100 my-2">`;
+            html += `<li class="font-bold text-slate-900 text-xs">Remaining Cash: £${leftover.toLocaleString()}</li>`;
             el.innerHTML = html;
         }
 

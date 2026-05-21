@@ -131,12 +131,12 @@
 
     <main class="hw-card p-6 md:p-10">
         <header class="mb-8 border-b border-slate-100 pb-6 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-    <div class="text-left">
-        <h1 class="text-2xl font-black text-slate-900 tracking-tighter">Value Calculator</h1>
-        <p class="text-slate-500 text-sm font-medium">Is Your Exchange Fair?</p>
-    </div>
+            <div class="text-left">
+                <h1 class="text-2xl font-black text-slate-900 tracking-tighter uppercase leading-none">Value Calculator</h1>
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Is Your Exchange Fair?</p>
+            </div>
 
-    <div class="grid grid-cols-3 gap-3 w-full lg:max-w-md">
+            <div class="grid grid-cols-3 gap-3 w-full lg:max-w-md">
                 <div>
                     <label class="section-label">Nightly (£)</label>
                     <input id="nightly-price" type="number" value="35" oninput="update()" class="input-field">
@@ -146,8 +146,15 @@
                     <input id="stay-duration" type="number" value="30" oninput="update()" class="input-field">
                 </div>
                 <div>
-                    <label class="section-label">Work (Hrs)</label>
-                    <input id="work-hours" type="number" value="20" oninput="update()" class="input-field">
+                    <label class="section-label">Continent</label>
+                    <select id="region-select" onchange="update()" class="input-field cursor-pointer">
+                        <option value="europe">Europe</option>
+                        <option value="asia">Asia</option>
+                        <option value="south_america">South America</option>
+                        <option value="north_america">North America</option>
+                        <option value="africa">Africa</option>
+                        <option value="oceania">Oceania</option>
+                    </select>
                 </div>
             </div>
         </header>
@@ -176,8 +183,29 @@
                         <h2 id="total-val" class="text-5xl font-black text-slate-900 tracking-tighter mb-6">£0</h2>
 
                         <div class="score-box p-4 mb-6">
-                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Value Per Hour</p>
-                            <p id="hourly-rate" class="text-3xl font-black text-slate-900">£0.00</p>
+                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">What You Can Get</p>
+                            <div class="space-y-2 text-slate-900 font-bold text-xs">
+                                <div class="flex justify-between items-center bg-white p-1.5 px-2 border border-slate-200">
+                                    <span>🍺 Beers</span>
+                                    <span id="eq-beers" class="font-black text-slate-800">0</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-white p-1.5 px-2 border border-slate-200">
+                                    <span>🍲 Local Meals</span>
+                                    <span id="eq-meals" class="font-black text-slate-800">0</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-white p-1.5 px-2 border border-slate-200">
+                                    <span>🏄 Activities / Classes </span>
+                                    <span id="eq-activities" class="font-black text-slate-800">0</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-white p-1.5 px-2 border border-slate-200">
+                                    <span>🗺️ Day Tours</span>
+                                    <span id="eq-tours" class="font-black text-slate-800">0</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-white p-1.5 px-2 border border-slate-200">
+                                    <span>✈️ Domestic Flights</span>
+                                    <span id="eq-flights" class="font-black text-slate-800">0</span>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="space-y-3">
@@ -231,6 +259,15 @@
             { id: 'e8', name: 'Rating above 8.5', pts: 9, icon: '⭐' }
         ];
 
+        const REGION_COSTS = {
+            europe: { beer: 4.00, meal: 12.00, activity: 30.00, tour: 50.00, flight: 40.00 },
+            asia: { beer: 1.20, meal: 3.00, activity: 12.00, tour: 25.00, flight: 35.00 },
+            south_america: { beer: 1.50, meal: 4.50, activity: 15.00, tour: 35.00, flight: 45.00 },
+            north_america: { beer: 5.50, meal: 15.00, activity: 45.00, tour: 75.00, flight: 80.00 },
+            africa: { beer: 2.00, meal: 5.00, activity: 18.00, tour: 40.00, flight: 55.00 },
+            oceania: { beer: 6.50, meal: 16.00, activity: 50.00, tour: 85.00, flight: 70.00 }
+        };
+
         let selected = new Set();
         let celebrated = false; 
         const MAX_PTS = 110; 
@@ -242,7 +279,7 @@
                 const url = new URL(window.location.href);
                 url.searchParams.set('n', document.getElementById('nightly-price').value);
                 url.searchParams.set('d', document.getElementById('stay-duration').value);
-                url.searchParams.set('w', document.getElementById('work-hours').value);
+                url.searchParams.set('r', document.getElementById('region-select').value);
                 url.searchParams.set('s', Array.from(selected).join(','));
                 window.history.replaceState({}, '', url);
             }, 500); 
@@ -252,7 +289,7 @@
             const params = new URLSearchParams(window.location.search);
             if (params.has('n')) document.getElementById('nightly-price').value = params.get('n');
             if (params.has('d')) document.getElementById('stay-duration').value = params.get('d');
-            if (params.has('w')) document.getElementById('work-hours').value = params.get('w');
+            if (params.has('r')) document.getElementById('region-select').value = params.get('r');
             if (params.has('s')) {
                 const ids = params.get('s').split(',');
                 ids.forEach(id => {
@@ -334,7 +371,7 @@
         function update(shouldSyncUrl = true) {
             const nightly = parseFloat(document.getElementById('nightly-price').value) || 0;
             const days = parseFloat(document.getElementById('stay-duration').value) || 1;
-            const weeklyHours = parseFloat(document.getElementById('work-hours').value) || 0;
+            const chosenRegion = document.getElementById('region-select').value;
 
             const weeks = days / 7;
             let mValueTotal = 0;
@@ -353,11 +390,24 @@
 
             const baseCost = nightly * days;
             const fullValue = baseCost + mValueTotal;
-            const totalHours = weeklyHours * weeks;
-            const hourlyEq = totalHours > 0 ? (fullValue / totalHours) : 0;
+
+            // Compute commodities values based on selected region matrix
+            const rates = REGION_COSTS[chosenRegion];
+            const numBeers = fullValue / rates.beer;
+            const numMeals = fullValue / rates.meal;
+            const numActivities = fullValue / rates.activity;
+            const numTours = fullValue / rates.tour;
+            const numFlights = fullValue / rates.flight;
 
             document.getElementById('total-val').innerText = `£${Math.round(fullValue)}`;
-            document.getElementById('hourly-rate').innerText = `£${hourlyEq.toFixed(2)}`;
+            
+            // Render calculations smoothly with fallback matching your style
+            document.getElementById('eq-beers').innerText = numBeers >= 1 ? Math.floor(numBeers) : numBeers.toFixed(1);
+            document.getElementById('eq-meals').innerText = numMeals >= 1 ? Math.floor(numMeals) : numMeals.toFixed(1);
+            document.getElementById('eq-activities').innerText = numActivities >= 1 ? Math.floor(numActivities) : numActivities.toFixed(1);
+            document.getElementById('eq-tours').innerText = numTours >= 1 ? Math.floor(numTours) : numTours.toFixed(1);
+            document.getElementById('eq-flights').innerText = numFlights >= 1 ? Math.floor(numFlights) : numFlights.toFixed(1);
+
             document.getElementById('score-label').innerText = `${totalPoints} pts`;
             document.getElementById('break-perks').innerText = `+£${Math.round(mValueTotal)}`;
             

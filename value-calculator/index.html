@@ -45,7 +45,7 @@
             50% { transform: translate(30px, 30px) scale(1.1); }
         }
 
-        .hw-card, .input-field, button, .perk-card, .score-box, .progress-bg { 
+        .hw-card, .input-field, button, .perk-card, .score-box, .progress-bg, .eq-item { 
             border-radius: 2px !important; 
         }
 
@@ -73,10 +73,9 @@
             width: 100%;
             background: #f1f5f9;
             border: 1px solid #e2e8f0;
-            padding: 10px 14px;
-            font-size: 16px;
+            padding: 12px 16px;
+            font-size: 16px !important;
             color: #1e293b;
-            font-weight: 700;
             outline: none;
         }
         .input-field:focus {
@@ -87,13 +86,13 @@
         .perk-card {
             cursor: pointer;
             transition: all 0.2s ease;
-            background: #f8fafc;
+            background: #f1f5f9;
             border: 1px solid #e2e8f0;
-            padding: 12px;
+            padding: 6px 10px;
         }
         .perk-card:hover {
             border-color: var(--brand-purple);
-            background: #f1f5f9;
+            background: #e2e8f0;
         }
 
         .active-selection {
@@ -130,24 +129,24 @@
     </div>
 
     <main class="hw-card p-6 md:p-10">
-        <header class="mb-8 border-b border-slate-100 pb-6 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        <header class="mb-6 border-b border-slate-100 pb-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div class="text-left">
-                <h1 class="text-2xl font-black text-slate-900 tracking-tighter uppercase leading-none">Value Calculator</h1>
-                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Is Your Exchange Fair?</p>
+                <h1 class="text-2xl font-black text-slate-900">Value Calculator</h1>
+                <p class="text-slate-500 text-sm">Is Your Exchange Fair?</p>
             </div>
 
             <div class="grid grid-cols-3 gap-3 w-full lg:max-w-md">
                 <div>
                     <label class="section-label">Nightly (£)</label>
-                    <input id="nightly-price" type="number" value="35" oninput="update()" class="input-field">
+                    <input id="nightly-price" type="number" value="35" oninput="update()" class="input-field font-semibold">
                 </div>
                 <div>
                     <label class="section-label">Stay (Days)</label>
-                    <input id="stay-duration" type="number" value="30" oninput="update()" class="input-field">
+                    <input id="stay-duration" type="number" value="30" oninput="update()" class="input-field font-semibold">
                 </div>
                 <div>
                     <label class="section-label">Continent</label>
-                    <select id="region-select" onchange="update()" class="input-field cursor-pointer">
+                    <select id="region-select" onchange="update()" class="input-field font-semibold cursor-pointer">
                         <option value="europe">Europe</option>
                         <option value="asia">Asia</option>
                         <option value="south_america">South America</option>
@@ -160,16 +159,16 @@
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div class="lg:col-span-7 space-y-8">
+            <div class="lg:col-span-7 space-y-6">
                 <section>
-                    <label class="section-label mb-4 flex items-center gap-2">
+                    <label class="section-label mb-3 flex items-center gap-2">
                         <i data-lucide="piggy-bank" class="w-3 h-3 text-slate-400"></i> Cash Perks
                     </label>
                     <div id="monetary-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
                 </section>
 
                 <section>
-                    <label class="section-label mb-4 flex items-center gap-2">
+                    <label class="section-label mb-3 flex items-center gap-2">
                         <i data-lucide="sparkles" class="w-3 h-3 text-slate-400"></i> Experience Perks
                     </label>
                     <div id="experience-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
@@ -178,39 +177,39 @@
 
             <div class="lg:col-span-5">
                 <div class="sticky-panel space-y-4">
-                    <div class="bg-slate-50 border border-slate-100 p-6">
-                        <p class="text-slate-400 text-[10px] font-black uppercase tracking-widest mb-1">Stay Value</p>
+                    <div class="bg-white border border-slate-100 p-6 shadow-lg">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Stay Value</p>
                         <h2 id="total-val" class="text-5xl font-black text-slate-900 tracking-tighter mb-6">£0</h2>
 
                         <div class="score-box p-4 mb-6">
-                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">What You Can Get</p>
-                            <div class="space-y-2 text-slate-900 font-bold text-xs">
-                                <div class="flex justify-between items-center bg-white p-1.5 px-2 border border-slate-200">
-                                    <span>🍺 Beers</span>
-                                    <span id="eq-beers" class="font-black text-slate-800">0</span>
+                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-3">What You Can Get</p>
+                            <div class="space-y-2 text-slate-900 text-xs">
+                                <div class="flex justify-between items-center bg-white p-2 px-3 border border-slate-200 eq-item">
+                                    <span class="font-medium">🍺 Beers</span>
+                                    <span id="eq-beers" class="font-bold text-slate-800">0</span>
                                 </div>
-                                <div class="flex justify-between items-center bg-white p-1.5 px-2 border border-slate-200">
-                                    <span>🍲 Local Meals</span>
-                                    <span id="eq-meals" class="font-black text-slate-800">0</span>
+                                <div class="flex justify-between items-center bg-white p-2 px-3 border border-slate-200 eq-item">
+                                    <span class="font-medium">🍲 Local Meals</span>
+                                    <span id="eq-meals" class="font-bold text-slate-800">0</span>
                                 </div>
-                                <div class="flex justify-between items-center bg-white p-1.5 px-2 border border-slate-200">
-                                    <span>🏄 Activities / Classes </span>
-                                    <span id="eq-activities" class="font-black text-slate-800">0</span>
+                                <div class="flex justify-between items-center bg-white p-2 px-3 border border-slate-200 eq-item">
+                                    <span class="font-medium">🏄 Activities / Classes</span>
+                                    <span id="eq-activities" class="font-bold text-slate-800">0</span>
                                 </div>
-                                <div class="flex justify-between items-center bg-white p-1.5 px-2 border border-slate-200">
-                                    <span>🗺️ Day Tours</span>
-                                    <span id="eq-tours" class="font-black text-slate-800">0</span>
+                                <div class="flex justify-between items-center bg-white p-2 px-3 border border-slate-200 eq-item">
+                                    <span class="font-medium">🗺️ Day Tours</span>
+                                    <span id="eq-tours" class="font-bold text-slate-800">0</span>
                                 </div>
-                                <div class="flex justify-between items-center bg-white p-1.5 px-2 border border-slate-200">
-                                    <span>✈️ Domestic Flights</span>
-                                    <span id="eq-flights" class="font-black text-slate-800">0</span>
+                                <div class="flex justify-between items-center bg-white p-2 px-3 border border-slate-200 eq-item">
+                                    <span class="font-medium">✈️ Domestic Flights</span>
+                                    <span id="eq-flights" class="font-bold text-slate-800">0</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="space-y-3">
                             <div class="flex justify-between items-end">
-                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Exchange Score</span>
+                                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Exchange Score</span>
                                 <span id="score-label" class="text-lg font-black text-slate-900 italic">0 pts</span>
                             </div>
                             <div class="progress-bg">
@@ -224,12 +223,12 @@
                         </div>
                     </div>
 
-                    <div class="bg-white border-2 border-dashed border-slate-100 p-4 space-y-2">
-                        <div class="flex justify-between items-center text-[11px] font-bold">
-                            <span class="text-slate-400 uppercase">Perk Total</span>
+                    <div class="bg-slate-50 border border-slate-200 p-4 space-y-1">
+                        <div class="flex justify-between items-center text-[11px] font-bold uppercase tracking-widest">
+                            <span class="text-slate-400">Perk Total</span>
                             <span id="break-perks" class="text-slate-900 font-black">+£0</span>
                         </div>
-                        <p id="insight-text" class="text-[10px] text-slate-500 font-bold leading-tight">Select perks to evaluate ROI.</p>
+                        <p id="insight-text" class="text-[10px] text-slate-500 font-bold tracking-wide mt-1">Select perks to evaluate ROI.</p>
                     </div>
                 </div>
             </div>
@@ -308,15 +307,15 @@
 
             MONETARY.forEach(item => {
                 const div = document.createElement('div');
-                div.className = 'perk-card flex items-center gap-3';
+                div.className = 'perk-card flex items-center gap-2';
                 div.id = `card-${item.id}`;
                 div.onclick = () => toggle(item.id);
                 const sub = item.freq === 'daily' ? `£${item.val}/day` : `£${item.val}/wk`;
                 div.innerHTML = `
-                    <div class="w-8 h-8 icon-bg bg-white flex items-center justify-center text-lg" style="border-radius:2px;">${item.icon}</div>
+                    <div class="text-sm px-1">${item.icon}</div>
                     <div class="flex-1">
-                        <p class="text-[10px] font-black uppercase text-slate-800 leading-tight">${item.name}</p>
-                        <p class="text-[8px] text-slate-400 font-bold uppercase tracking-wide">${sub}</p>
+                        <p class="text-[11px] font-semibold text-slate-600">${item.name}</p>
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${sub}</p>
                     </div>
                 `;
                 mList.appendChild(div);
@@ -324,14 +323,14 @@
 
             EXPERIENCE.forEach(item => {
                 const div = document.createElement('div');
-                div.className = 'perk-card flex items-center gap-3';
+                div.className = 'perk-card flex items-center gap-2';
                 div.id = `card-${item.id}`;
                 div.onclick = () => toggle(item.id);
                 div.innerHTML = `
-                    <div class="w-8 h-8 icon-bg bg-white flex items-center justify-center text-lg" style="border-radius:2px;">${item.icon}</div>
+                    <div class="text-sm px-1">${item.icon}</div>
                     <div class="flex-1">
-                        <p class="text-[10px] font-black uppercase text-slate-800 leading-tight">${item.name}</p>
-                        <p class="text-[8px] text-slate-400 font-bold uppercase tracking-wide">${item.pts} Pts</p>
+                        <p class="text-[11px] font-semibold text-slate-600">${item.name}</p>
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${item.pts} Pts</p>
                     </div>
                 `;
                 eList.appendChild(div);
@@ -391,7 +390,6 @@
             const baseCost = nightly * days;
             const fullValue = baseCost + mValueTotal;
 
-            // Compute commodities values based on selected region matrix
             const rates = REGION_COSTS[chosenRegion];
             const numBeers = fullValue / rates.beer;
             const numMeals = fullValue / rates.meal;
@@ -401,7 +399,6 @@
 
             document.getElementById('total-val').innerText = `£${Math.round(fullValue)}`;
             
-            // Render calculations smoothly with fallback matching your style
             document.getElementById('eq-beers').innerText = numBeers >= 1 ? Math.floor(numBeers) : numBeers.toFixed(1);
             document.getElementById('eq-meals').innerText = numMeals >= 1 ? Math.floor(numMeals) : numMeals.toFixed(1);
             document.getElementById('eq-activities').innerText = numActivities >= 1 ? Math.floor(numActivities) : numActivities.toFixed(1);

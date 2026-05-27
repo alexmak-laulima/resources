@@ -59,32 +59,20 @@
             appearance: none;
         }
 
-        /* Modern circular slider handle styling */
         .custom-slider-thumb::-webkit-slider-thumb {
             -webkit-appearance: none;
-            appearance: none;
-            width: 24px; 
-            height: 24px; 
+            width: 36px; 
+            height: 36px; 
             cursor: grab;
-            background: var(--brand-blue);
-            border: 3px solid #ffffff;
-            border-radius: 50%;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-
-        .custom-slider-thumb::-moz-range-thumb {
-            width: 18px; 
-            height: 18px; 
-            cursor: grab;
-            background: var(--brand-blue);
-            border: 3px solid #ffffff;
-            border-radius: 50%;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="70">🛩️</text></svg>'); 
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         .experiences-list {
-            /* Increased height to cleanly buffer the longest text variations and eliminate jumpiness */
-            min-height: 220px;
+            /* Consistent height for column content */
+            min-height: 160px;
         }
 
         .experiences-list li {
@@ -126,7 +114,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="text-[9px] text-slate-400 mt-2 italic font-bold text-center">(Slide the circle to toggle months)</p>
+                <p class="text-[9px] text-slate-400 mt-2 italic font-bold text-center">(Drag the 🛩️ to toggle months)</p>
             </div>
         </header>
 

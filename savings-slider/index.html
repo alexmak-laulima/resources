@@ -59,20 +59,32 @@
             appearance: none;
         }
 
+        /* Modern circular slider handle styling */
         .custom-slider-thumb::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 36px; 
-            height: 36px; 
+            appearance: none;
+            width: 24px; 
+            height: 24px; 
             cursor: grab;
-            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="70">🛩️</text></svg>'); 
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
+            background: var(--brand-blue);
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .custom-slider-thumb::-moz-range-thumb {
+            width: 18px; 
+            height: 18px; 
+            cursor: grab;
+            background: var(--brand-blue);
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         .experiences-list {
-            /* Consistent height for column content */
-            min-height: 160px;
+            /* Increased height to cleanly buffer the longest text variations and eliminate jumpiness */
+            min-height: 220px;
         }
 
         .experiences-list li {
@@ -114,7 +126,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="text-[9px] text-slate-400 mt-2 italic font-bold text-center">(Drag the 🛩️ to toggle months)</p>
+                <p class="text-[9px] text-slate-400 mt-2 italic font-bold text-center">(Slide the circle to toggle months)</p>
             </div>
         </header>
 
@@ -123,7 +135,7 @@
                 <div class="text-2xl mb-2">🏰</div>
                 <h3 class="section-label mb-1">Europe</h3>
                 <div class="text-3xl font-black text-slate-900 mb-5">£<span id="cashSavedEU">2,880</span></div>
-                <div class="p-4 bg-white border border-slate-100 text-left rounded-[2px] min-h-[195px]">
+                <div class="p-4 bg-white border border-slate-100 text-left rounded-[2px]">
                     <p class="text-xxs text-slate-400 mb-3 font-bold">What experiences this can pay for:</p>
                     <ul id="experiencesEU" class="experiences-list space-y-2"></ul>
                 </div>
@@ -134,7 +146,7 @@
                 <div class="text-2xl mb-2">⛰️</div>
                 <h3 class="section-label mb-1">South America</h3>
                 <div class="text-3xl font-black text-slate-900 mb-5">£<span id="cashSavedSA">1,620</span></div>
-                <div class="p-4 bg-white border border-slate-100 text-left rounded-[2px] min-h-[195px]">
+                <div class="p-4 bg-white border border-slate-100 text-left rounded-[2px]">
                     <p class="text-xxs text-slate-400 mb-3 font-bold">What experiences this can pay for:</p>
                     <ul id="experiencesSA" class="experiences-list space-y-2"></ul>
                 </div>
@@ -145,7 +157,7 @@
                 <div class="text-2xl mb-2">🏯</div>
                 <h3 class="section-label mb-1">South East Asia</h3>
                 <div class="text-3xl font-black text-slate-900 mb-5">£<span id="cashSavedSEA">1,440</span></div>
-                <div class="p-4 bg-white border border-slate-100 text-left rounded-[2px] min-h-[195px]">
+                <div class="p-4 bg-white border border-slate-100 text-left rounded-[2px]">
                     <p class="text-xxs text-slate-400 mb-3 font-bold">What experiences this can pay for:</p>
                     <ul id="experiencesSEA" class="experiences-list space-y-2"></ul>
                 </div>

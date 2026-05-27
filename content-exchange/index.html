@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Laulima | Content Exchange</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root { --brand-blue: #008dd5; }
         
@@ -50,7 +55,6 @@
             max-width: 900px;
             position: relative;
             z-index: 10;
-            /* FIXED HEIGHT TO PREVENT JUMPING */
             height: 650px; 
             display: flex;
             flex-direction: column;
@@ -101,7 +105,7 @@
             font-size: 14px;
             line-height: 1.6;
             color: #334155;
-            height: 200px; /* Fixed height for text area */
+            height: 200px; 
             overflow-y: auto;
             outline: none;
         }
@@ -130,7 +134,7 @@
                         <input type="text" id="creator-name" placeholder="John Doe" class="input-field">
                     </div>
                     <div>
-                        <label class="section-label">Content Link</label>
+                        <label class="section-label">Instagram Link</label>
                         <input type="url" id="creator-url" placeholder="Paste post or reel link..." class="input-field">
                     </div>
                 </div>
@@ -215,21 +219,20 @@
 
         function copyAndFlash() {
             const text = document.getElementById('final-preview').innerText;
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-
-            const btn = document.getElementById('copy-btn');
-            const btnText = document.getElementById('copy-text');
-            btn.style.backgroundColor = "#22c55e"; 
-            btnText.innerText = "Copied!";
-            setTimeout(() => {
-                btn.style.backgroundColor = "#008dd5";
-                btnText.innerText = "Copy Message";
-            }, 2000);
+            
+            // Modern, fast asynchronous clipboard utility replacing legacy main-thread blocking methods
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.getElementById('copy-btn');
+                const btnText = document.getElementById('copy-text');
+                btn.style.backgroundColor = "#22c55e"; 
+                btnText.innerText = "Copied!";
+                setTimeout(() => {
+                    btn.style.backgroundColor = "#008dd5";
+                    btnText.innerText = "Copy Message";
+                }, 2000);
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
         }
 
         function resetBuilder() {
